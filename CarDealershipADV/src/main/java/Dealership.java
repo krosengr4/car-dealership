@@ -172,6 +172,7 @@ public class Dealership {
         if (!isCarFound) {
             System.err.println("ERROR! We could not find a car with that VIN!");
         } else {
+            DealershipFileManager.writeToInventory(inventory);
             ContractFileManager.writeSalesToContracts(salesContract);
             System.out.println("Success!");
         }
