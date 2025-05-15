@@ -2,11 +2,13 @@ public class LeaseContract extends Contract{
 
     double expectedEndingValue;
     double leaseFee;
+    boolean isFinance;
 
     public LeaseContract(){}
 
-    public LeaseContract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicleSold) {
+    public LeaseContract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicleSold, boolean isFinance) {
         super(dateOfContract, customerName, customerEmail, vehicleSold);
+        this.isFinance = isFinance;
     }
 
     //region getters and setters

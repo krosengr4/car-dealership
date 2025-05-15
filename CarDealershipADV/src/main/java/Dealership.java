@@ -187,4 +187,34 @@ public class Dealership {
         }
         UserPrompt.pauseApp();
     }
+
+    public void leaseVehicle(String date, String customerName, String customerEmail, boolean isFinance, int VIN) {
+        inventory = DealershipFileManager.getInventory();
+        LeaseContract leaseContract = new LeaseContract();
+        boolean isCarFound = false;
+
+        Vehicle vehicle = new Vehicle();
+
+        for (Vehicle v : inventory) {
+            if (VIN == v.getVin()) {
+                leaseContract = new LeaseContract(date, customerName, customerEmail, v, isFinance);
+                vehicle.setColor(v.getColor());
+                vehicle.setMake(v.getMake());
+                vehicle.setModel(v.getModel());
+                vehicle.setVin(v.getVin());
+
+                inventory.remove(v);
+                isCarFound = true;
+                break;
+            }
+        }
+        if (!isCarFound) {
+            System.err.println("ERROR! We could not find a car with that VIN!");
+        } else {
+            DealershipFileManager.writeToInventory(inventory);
+            System.out.printf("Success! The %s %s %s VIN of %d was sold!",
+                    vehicle.getColor(), vehicle.getMake(), vehicle.getModel(), vehicle.getVin());
+        }
+
+    }
 }
