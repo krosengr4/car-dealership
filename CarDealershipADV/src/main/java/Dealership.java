@@ -181,7 +181,7 @@ public class Dealership {
             System.err.println("ERROR! We could not find a car with that VIN!");
         } else {
             DealershipFileManager.writeToInventory(inventory);
-            ContractFileManager.writeSalesToContracts(salesContract);
+            ContractFileManager.writeToContractsFile(salesContract);
             System.out.printf("Success! The %s %s %s VIN of %d was sold!",
                     vehicle.getColor(), vehicle.getMake(), vehicle.getModel(), vehicle.getVin());
         }
@@ -212,9 +212,14 @@ public class Dealership {
             System.err.println("ERROR! We could not find a car with that VIN!");
         } else {
             DealershipFileManager.writeToInventory(inventory);
-            System.out.printf("Success! The %s %s %s VIN of %d was sold!",
+            ContractFileManager.writeToContractsFile(leaseContract);
+            System.out.printf("Success! The %s %s %s, VIN of %d, was leased!",
                     vehicle.getColor(), vehicle.getMake(), vehicle.getModel(), vehicle.getVin());
         }
+
+    }
+
+    public void leaseSellVehicle(String date, String customerName, String customerEmail, boolean isFinance, int VIN) {
 
     }
 }
