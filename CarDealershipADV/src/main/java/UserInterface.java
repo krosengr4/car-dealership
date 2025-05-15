@@ -23,6 +23,7 @@ public class UserInterface {
                 case "7" -> processAllVehiclesRequest();
                 case "8" -> processAddAVehicle();
                 case "9" -> processRemoveAVehicle();
+                case "10" -> displaySellLease();
                 case "99" -> ifContinue = false;
                 default -> System.err.println("ERROR! Please enter a number between 1 - 9, or 99 to exit!");
             }
@@ -42,6 +43,7 @@ public class UserInterface {
                 7 - Show All Vehicles
                 8 - Add a Vehicle
                 9 - Remove a Vehicle
+                10 - Sell or Lease a Vehicle
                 99 - Exit
                 """);
 
@@ -139,5 +141,24 @@ public class UserInterface {
         int userRemove = Integer.parseInt(UserPrompt.promptGetUserInput("Please enter the VIN of the Vehicle you'd like to remove: "));
 
         dealership.removeVehicle(userRemove);
+    }
+
+    private void displaySellLease() {
+        System.out.println("Sell or Lease?\n1 - Sell\n2 - Lease");
+        String userSellOrLease = UserPrompt.promptGetUserInput("Enter a number: ").trim();
+
+        switch (userSellOrLease) {
+            case "1" -> processSellVehicle();
+            case "2" -> processLeaseVehicle();
+            default -> System.err.println("ERROR! Please enter 1 or 2!");
+        }
+    }
+
+    private void processSellVehicle() {
+        System.out.println("Sell a vehicle");
+    }
+
+    private void processLeaseVehicle() {
+        System.out.println("Lease a vehicle");
     }
 }
