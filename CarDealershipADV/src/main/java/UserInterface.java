@@ -169,15 +169,17 @@ public class UserInterface {
         }
 
         int customerVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you want to sell: ").trim());
-        String leaseOrSell = null;
+        String leaseOrSell = "";
 
         switch (userChoice) {
             case "1":
                 leaseOrSell = "sell";
                 dealership.leaseSellVehicle(leaseOrSell, date, customerName, customerEmail, isFinance, customerVIN);
+                break;
             case "2":
                 leaseOrSell = "lease";
                 dealership.leaseSellVehicle(leaseOrSell, date, customerName, customerEmail, isFinance, customerVIN);
+                break;
         }
     }
 }

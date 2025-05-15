@@ -184,31 +184,32 @@ public class Dealership {
                 } else if (leaseOrSell.equalsIgnoreCase("lease")) {
                     leaseContract = new LeaseContract(date, customerName, customerEmail, v, isFinance);
                 }
+                isCarFound = true;
                 vehicle.setColor(v.getColor());
                 vehicle.setMake(v.getMake());
                 vehicle.setModel(v.getModel());
                 vehicle.setVin(v.getVin());
 
                 inventory.remove(v);
-                isCarFound = true;
                 break;
             }
         }
 
-        if (!isCarFound) {
-            System.err.println("ERROR! We could not find a car with that VIN!");
-        } else {
+        if (isCarFound && leaseOrSell.equalsIgnoreCase("sell")) {
             DealershipFileManager.writeToInventory(inventory);
-
-            if (leaseOrSell.equalsIgnoreCase("sell")) {
-                ContractFileManager.writeToContractsFile(salesContract);
-                System.out.printf("Success! The %s %s %s VIN of %d was sold!",
-                        vehicle.getColor(), vehicle.getMake(), vehicle.getModel(), vehicle.getVin());
-            } else {
-                ContractFileManager.writeToContractsFile(leaseContract);
-                System.out.printf("Success! The %s %s %s, VIN of %d, was leased!",
-                        vehicle.getColor(), vehicle.getMake(), vehicle.getModel(), vehicle.getVin());
-            }
+            ContractFileManager.writeToContractsFile(salesContract);
+            System.out.printf("Success! The %s %s %s VIN of %d was sold!",
+                    vehicle.getColor(), vehicle.getMake(), vehicle.getModel(), vehicle.getVin());
+        } else if (isCarFound && leaseOrSell.equalsIgnoreCase("lease")) {
+            DealershipFileManager.writeToInventory(inventory);
+            ContractFileManager.writeToContractsFile(leaseContract);
+            System.out.printf("Success! The %s %s %s, VIN of %d, was leased!",
+                    vehicle.getColor(), vehicle.getMake(), vehicle.getModel(), vehicle.getVin());
+        } else {
+            System.err.println("ERROR! We could not find a car with that VIN!");
         }
+
+        UserPrompt.pauseApp();
     }
 }
+
