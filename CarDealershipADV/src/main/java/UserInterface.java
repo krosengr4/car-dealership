@@ -24,7 +24,7 @@ public class UserInterface {
                 case "8" -> processAddAVehicle();
                 case "9" -> processRemoveAVehicle();
                 case "99" -> ifContinue = false;
-                default -> System.out.println("ERROR! Please enter a number between 1 - 9, or 99 to exit!");
+                default -> System.err.println("ERROR! Please enter a number between 1 - 9, or 99 to exit!");
             }
         }
     }
