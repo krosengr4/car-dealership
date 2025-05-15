@@ -3,14 +3,14 @@ public abstract class Contract {
     String dateOfContract;
     String customerName;
     String customerEmail;
-    String vehicleSold;
+    Vehicle vehicleSold;
     double totalPrice;
     double monthlyPayment;
     Vehicle vehicle;
 
     public Contract(){}
 
-    public Contract(String dateOfContract, String customerName, String customerEmail, String vehicleSold) {
+    public Contract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicleSold) {
         this.dateOfContract = dateOfContract;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
@@ -42,11 +42,11 @@ public abstract class Contract {
         this.customerEmail = customerEmail;
     }
 
-    public String getVehicleSold() {
+    public Vehicle getVehicleSold() {
         return vehicleSold;
     }
 
-    public void setVehicleSold(String vehicleSold) {
+    public void setVehicleSold(Vehicle vehicleSold) {
         this.vehicleSold = vehicleSold;
     }
     //endregion

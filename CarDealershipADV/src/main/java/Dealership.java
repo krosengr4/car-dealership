@@ -155,4 +155,24 @@ public class Dealership {
 
         UserPrompt.pauseApp();
     }
+
+    public void sellVehicle(String date, String customerName, String customerEmail, boolean isFinance, int VIN) {
+        inventory = DealershipFileManager.getInventory();
+        SalesContract salesContract;
+        boolean isCarFound = false;
+
+        for (Vehicle v : inventory) {
+            if (VIN == v.getVin()) {
+                salesContract = new SalesContract(date, customerName, customerEmail, v, isFinance);
+                inventory.remove(v);
+                isCarFound = true;
+                break;
+            }
+        }
+        if (!isCarFound) {
+            System.err.println("ERROR! We could not find a car with that VIN!");
+        } else {
+            System.out.println("Success!");
+        }
+    }
 }

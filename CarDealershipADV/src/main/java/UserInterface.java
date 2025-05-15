@@ -155,7 +155,22 @@ public class UserInterface {
     }
 
     private void processSellVehicle() {
-        System.out.println("Sell a vehicle");
+
+        String date = DateTime.getLocalDate();
+        String customerName = UserPrompt.promptGetUserInput("Enter customers name: ").trim();
+        String customerEmail = UserPrompt.promptGetUserInput("Enter customers email: ").trim();
+
+        String customerFinance = UserPrompt.promptGetUserInput("Does the customer want to finance? (Y or N): ").trim();
+        boolean isFinance = false;
+        if (customerFinance.equalsIgnoreCase("y")) {
+            isFinance = true;
+        } else if (!customerFinance.equalsIgnoreCase("n")) {
+            System.err.println("ERROR! Please enter y or n!");
+        }
+
+        int customerSellVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you want to sell: "));
+
+        dealership.sellVehicle(date, customerName, customerEmail, isFinance, customerSellVIN);
     }
 
     private void processLeaseVehicle() {
