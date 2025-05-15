@@ -158,7 +158,7 @@ public class Dealership {
 
     public void sellVehicle(String date, String customerName, String customerEmail, boolean isFinance, int VIN) {
         inventory = DealershipFileManager.getInventory();
-        SalesContract salesContract;
+        SalesContract salesContract = new SalesContract();
         boolean isCarFound = false;
 
         for (Vehicle v : inventory) {
@@ -172,6 +172,7 @@ public class Dealership {
         if (!isCarFound) {
             System.err.println("ERROR! We could not find a car with that VIN!");
         } else {
+            ContractFileManager.writeSalesToContracts(salesContract);
             System.out.println("Success!");
         }
     }
