@@ -31,20 +31,15 @@ public class UserInterface {
     }
 
     private String menuChoice() {
-        System.out.println("\n\tOPTIONS");
-        Design.designLine(20, false);
+        System.out.println("\n\t\t\t\t\t\tMAIN MENU");
+        Design.designLine(70, false);
         System.out.println("""
-                1 - Find Car by Price
-                2 - Find Car by Make and Model
-                3 - Find Car by Year
-                4 - Find Car by Color
-                5 - Find Car by Mileage
-                6 - Find Cars by Vehicle Type
-                7 - Show All Vehicles
-                8 - Add a Vehicle
-                9 - Remove a Vehicle
-                10 - Sell or Lease a Vehicle
-                99 - Exit
+                1 - Find Car by Price               6 - Find Cars by Vehicle Type
+                2 - Find Car by Make and Model      7 - Show All Vehicles
+                3 - Find Car by Year                8 - Add a Vehicle
+                4 - Find Car by Color               9 - Remove a Vehicle
+                5 - Find Car by Mileage             10 - Sell or Lease a Vehicle
+                                        99 - Exit
                 """);
 
         return UserPrompt.promptGetUserInput("What would you like to do?: ").trim();
@@ -145,49 +140,39 @@ public class UserInterface {
 
     private void displaySellLease() {
         System.out.println("Sell or Lease?\n1 - Sell\n2 - Lease");
-        String userSellOrLease = UserPrompt.promptGetUserInput("Enter a number: ").trim();
+        String userChoice = UserPrompt.promptGetUserInput("Enter a number: ").trim();
 
-        switch (userSellOrLease) {
-            case "1" -> processSellVehicle();
-            case "2" -> processLeaseVehicle();
+        switch (userChoice) {
+            case "1", "2" -> processSellLeaseVehicle(userChoice);
             default -> System.err.println("ERROR! Please enter 1 or 2!");
         }
     }
 
-    private void processSellVehicle() {
-
-        String date = DateTime.getLocalDate();
-        String customerName = UserPrompt.promptGetUserInput("Enter customers full name: ").trim();
-        String customerEmail = UserPrompt.promptGetUserInput("Enter customers email: ").trim();
-
-        String customerFinance = UserPrompt.promptGetUserInput("Does the customer want to finance? (Y or N): ").trim();
-        boolean isFinance = false;
-        if (customerFinance.equalsIgnoreCase("y")) {
-            isFinance = true;
-        } else if (!customerFinance.equalsIgnoreCase("n")) {
-            System.err.println("ERROR! Please enter y or n!");
-        }
-
-        int customerSellVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you want to sell: ").trim());
-
-        dealership.sellVehicle(date, customerName, customerEmail, isFinance, customerSellVIN);
-    }
-
-    private void processLeaseVehicle() {
+    private void processSellLeaseVehicle(String userChoice) {
         String date = DateTime.getLocalDate();
         String customerName = UserPrompt.promptGetUserInput("Enter customers full name: ").trim();
         String customerEmail = UserPrompt.promptGetUserInput("Enter customers email: ").trim();
 
         String customerFinance = UserPrompt.promptGetUserInput("Does the customer want to finance (Y or N)?: ").trim();
         boolean isFinance = false;
-        if (customerFinance.equalsIgnoreCase("y")) {
-            isFinance = true;
-        } else if (!customerFinance.equalsIgnoreCase("n")) {
-            System.err.println("ERROR! Please enter y or n!");
+        boolean isContinue = true;
+
+        while (isContinue) {
+            if (customerFinance.equalsIgnoreCase("y")) {
+                isFinance = true;
+                isContinue = false;
+            } else if (customerFinance.equalsIgnoreCase("n")) {
+                isContinue = false;
+            } else {
+                System.err.println("ERROR! Please enter y or n!");
+            }
         }
 
-        int customerLeaseVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you want to sell: ").trim());
+        int customerVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you want to sell: ").trim());
 
-        dealership.leaseVehicle(date, customerName, customerEmail, isFinance, customerLeaseVIN);
+        switch (userChoice) {
+            case "1" -> dealership.sellVehicle(date, customerName, customerEmail, isFinance, customerVIN);
+            case "2" -> dealership.leaseVehicle(date, customerName, customerEmail, isFinance, customerVIN);
+        }
     }
 }
