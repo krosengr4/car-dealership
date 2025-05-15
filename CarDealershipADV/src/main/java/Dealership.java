@@ -161,9 +161,17 @@ public class Dealership {
         SalesContract salesContract = new SalesContract();
         boolean isCarFound = false;
 
+        Vehicle vehicle = new Vehicle();
+
         for (Vehicle v : inventory) {
             if (VIN == v.getVin()) {
                 salesContract = new SalesContract(date, customerName, customerEmail, v, isFinance);
+
+                vehicle.setColor(v.getColor());
+                vehicle.setMake(v.getMake());
+                vehicle.setModel(v.getModel());
+                vehicle.setVin(v.getVin());
+
                 inventory.remove(v);
                 isCarFound = true;
                 break;
@@ -174,7 +182,9 @@ public class Dealership {
         } else {
             DealershipFileManager.writeToInventory(inventory);
             ContractFileManager.writeSalesToContracts(salesContract);
-            System.out.println("Success!");
+            System.out.printf("Success! The %s %s %s VIN of %d was sold!",
+                    vehicle.getColor(), vehicle.getMake(), vehicle.getModel(), vehicle.getVin());
         }
+        UserPrompt.pauseApp();
     }
 }

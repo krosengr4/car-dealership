@@ -157,7 +157,7 @@ public class UserInterface {
     private void processSellVehicle() {
 
         String date = DateTime.getLocalDate();
-        String customerName = UserPrompt.promptGetUserInput("Enter customers name: ").trim();
+        String customerName = UserPrompt.promptGetUserInput("Enter customers full name: ").trim();
         String customerEmail = UserPrompt.promptGetUserInput("Enter customers email: ").trim();
 
         String customerFinance = UserPrompt.promptGetUserInput("Does the customer want to finance? (Y or N): ").trim();
