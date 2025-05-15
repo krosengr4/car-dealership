@@ -66,11 +66,7 @@ public class DealershipFileManager {
         return inventory;
     }
 
-    public void saveDealership(Dealership dealership) {
-        System.out.println("Save Dealership");
-    }
-
-    public static void writeToFile(ArrayList<Vehicle> inventory) {
+    public static void writeToInventory(ArrayList<Vehicle> inventory) {
 
         try {
             FileWriter writer = new FileWriter(filePath);

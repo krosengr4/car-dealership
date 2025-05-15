@@ -1,8 +1,5 @@
 import com.pluralsight.utils.UserPrompt;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Dealership {
@@ -133,7 +130,7 @@ public class Dealership {
         inventory = DealershipFileManager.getInventory();
 
         inventory.add(vehicle);
-        DealershipFileManager.writeToFile(inventory);
+        DealershipFileManager.writeToInventory(inventory);
     }
 
     public void removeVehicle(int VIN) {
@@ -151,7 +148,7 @@ public class Dealership {
 
         if (isCarFound) {
             System.out.println("Success! Car was removed");
-            DealershipFileManager.writeToFile(inventory);
+            DealershipFileManager.writeToInventory(inventory);
         } else {
             System.err.println("Could not find car with that VIN...");
         }
