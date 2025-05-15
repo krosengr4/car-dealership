@@ -31,11 +31,11 @@ public class LeaseContract extends Contract{
 
     @Override
     public double calculateMonthlyPayment() {
-        return 0;
+        return 3;
     }
 
     @Override
     public double calculateTotalPrice() {
-        return 0;
+        return 117;
     }
 }

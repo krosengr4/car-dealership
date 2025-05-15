@@ -51,10 +51,10 @@ public class SalesContract extends Contract {
 
     @Override
     public double calculateMonthlyPayment() {
-        return 0;
+        return 3 + 3;
     }
 
     @Override public double calculateTotalPrice() {
-        return 0;
+        return 2 + 2;
     }
 }
