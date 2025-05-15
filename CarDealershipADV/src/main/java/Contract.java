@@ -6,6 +6,7 @@ public abstract class Contract {
     String vehicleSold;
     double totalPrice;
     double monthlyPayment;
+    Vehicle vehicle;
 
     public Contract(){}
 
