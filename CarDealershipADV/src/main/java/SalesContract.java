@@ -5,6 +5,8 @@ public class SalesContract extends Contract {
     double processingFee;
     boolean isFinance;
 
+    public SalesContract() {}
+
     public SalesContract(String dateOfContract, String customerName, String customerEmail, String vehicleSold, boolean isFinance) {
 
         super(dateOfContract, customerName, customerEmail, vehicleSold);
