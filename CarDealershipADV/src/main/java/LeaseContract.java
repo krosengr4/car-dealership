@@ -51,7 +51,6 @@ public class LeaseContract extends Contract {
         double numberOfMonths = 36;
 
         return (monthlyRate * principal) / (1 - (Math.pow (1 + monthlyRate, -numberOfMonths)));
-
     }
 
     @Override
