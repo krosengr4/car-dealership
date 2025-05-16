@@ -77,7 +77,7 @@ public class SalesContract extends Contract {
     @Override
     public double calculateTotalPrice() {
 
-        return this.calculateSalesTax() + this.getRecordingFee() + this.calculateProcessingFee();
+        return this.getVehicleSold().getPrice() + this.calculateSalesTax() + this.getRecordingFee() + this.calculateProcessingFee();
 
     }
 }
