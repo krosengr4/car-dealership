@@ -1,11 +1,12 @@
-public class LeaseContract extends Contract{
+public class LeaseContract extends Contract {
 
     double expectedEndingValue;
     double leaseFee;
     double recordingFee;
     boolean isFinance;
 
-    public LeaseContract(){}
+    public LeaseContract() {
+    }
 
     public LeaseContract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicleSold, boolean isFinance) {
         super(dateOfContract, customerName, customerEmail, vehicleSold);
@@ -41,7 +42,16 @@ public class LeaseContract extends Contract{
 
     @Override
     public double calculateMonthlyPayment() {
-        return 3;
+        //payment=(r×p)/(1−(1+r)^−n)
+        //p = principal
+        //r = annualRate/12
+        // n = numberOfMonths
+        double principal = this.calculateTotalPrice();
+        double monthlyRate = .04 / 12;
+        double numberOfMonths = 36;
+
+        return (monthlyRate * principal) / (1 - (Math.pow (1 + monthlyRate, -numberOfMonths)));
+
     }
 
     @Override

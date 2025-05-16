@@ -10,15 +10,13 @@ public class SalesContract extends Contract {
     public SalesContract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicleSold, boolean isFinance) {
 
         super(dateOfContract, customerName, customerEmail, vehicleSold);
-//        this.salesTax = .05;
         this.isFinance = isFinance;
-//        this.salesTax = vehicleSold.getPrice() * .05;
     }
 
     //region getters and setters
-//    public void setSalesTax(double salesTax) {
-//        this.salesTax = vehicleSold.getPrice() * .05;
-//    }
+    public void setSalesTax(double salesTax) {
+        this.salesTax = salesTax;
+    }
 
     public double getRecordingFee() {
         return 100.00;
@@ -28,9 +26,9 @@ public class SalesContract extends Contract {
         this.recordingFee = recordingFee;
     }
 
-//    public double getProcessingFee() {
-//        return processingFee;
-//    }
+    public void setProcessingFee(double processingFee) {
+        this.processingFee = processingFee;
+    }
 
     public boolean isFinance() {
         return isFinance;
@@ -59,10 +57,18 @@ public class SalesContract extends Contract {
         //P = loan amount
         //i = monthly interest rate
         //n = number of months
+        double loanAmount = this.calculateTotalPrice();
+
         if (this.isFinance && this.vehicleSold.getPrice() >= 10000) {
-            return calculateTotalPrice() * (.0425 * Math.pow((1 + .0425), 48)) / (Math.pow(1 + .0425, 48));
+            double monthlyInterest = .0425 / 12;
+            double numberOfMonths = 48;
+
+            return loanAmount * (monthlyInterest * Math.pow((1 + monthlyInterest), numberOfMonths)) / (Math.pow(1 + monthlyInterest, numberOfMonths));
         } else if (this.isFinance && this.vehicleSold.getPrice() < 10000) {
-            return calculateTotalPrice() * (.0525 * Math.pow((1 + .0525), 24)) / (Math.pow(1 + .0525, 24));
+            double monthlyInterest = .0525 / 12;
+            double numberOfMonths = 24;
+
+            return loanAmount * (monthlyInterest * Math.pow((1 + monthlyInterest), numberOfMonths)) / (Math.pow(1 + monthlyInterest, numberOfMonths));
         } else {
             return 0.00;
         }
