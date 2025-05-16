@@ -2,6 +2,23 @@
   <dictionary name="project">
     <words>
       <w>codeo</w>
+      <w>expectedending</w>
+      <w>isfinanced</w>
+      <w>leasefee</w>
+      <w>monthlypayment</w>
+      <w>processingfee</w>
+      <w>recordingfee</w>
+      <w>salestax</w>
+      <w>totalprice</w>
+      <w>vcolor</w>
+      <w>vmake</w>
+      <w>vmodel</w>
+      <w>vodometer</w>
+      <w>vprice</w>
+      <w>vtype</w>
+      <w>vvin</w>
+      <w>vvyear</w>
+      <w>vyear</w>
     </words>
   </dictionary>
 </component>

@@ -208,8 +208,6 @@ public class Dealership {
         } else {
             System.err.println("ERROR! We could not find a car with that VIN!");
         }
-
-        UserPrompt.pauseApp();
     }
 }
 
