@@ -17,8 +17,8 @@ public class ContractFileManager {
                     "SALE" + "|" + contract.getDateOfContract() + "|" + contract.getCustomerName() + "|" + contract.getCustomerEmail()
                             + "|" + "|" + vehicle.getVin() + "|" + vehicle.getYear() + "|" + vehicle.getMake() + "|" + vehicle.getModel() + "|"
                             + vehicle.getVehicleType() + "|" + vehicle.getColor() + "|" + vehicle.getOdometer() + "|" + vehicle.getPrice() + "|"
-                            + ((SalesContract) contract).getSalesTax() + "|" + ((SalesContract) contract).getRecordingFee() + "|"
-                            + ((SalesContract) contract).getProcessingFee() + "|" + contract.calculateTotalPrice() + "|" + ((SalesContract) contract).isFinance
+                            + ((SalesContract) contract).calculateSalesTax() + "|" + ((SalesContract) contract).getRecordingFee() + "|"
+                            + ((SalesContract) contract).calculateProcessingFee() + "|" + contract.calculateTotalPrice() + "|" + ((SalesContract) contract).isFinance
                             + "|" + contract.calculateMonthlyPayment();
 
         } else if (contract instanceof LeaseContract) {
