@@ -36,7 +36,8 @@ public class ContractFileManager {
             if (contractAttributes != null) {
                 writer.write("\n" + contractAttributes);
                 writer.close();
-                System.out.println("The contract was recorded in contracts.csv file.");
+                System.out.printf("%s %s %s, VIN of %d. \nThe contract was recorded in the contracts.csv file.\n",
+                        vehicle.getColor(), vehicle.getMake(),vehicle.getModel(), vehicle.getVin());
             } else {
                 System.err.println("ERROR! This contract is null!!!");
             }

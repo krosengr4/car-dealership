@@ -175,7 +175,6 @@ public class Dealership {
         SalesContract salesContract = new SalesContract();
 
         boolean isCarFound = false;
-        Vehicle vehicle = new Vehicle();
 
         for (Vehicle v : inventory) {
             if (VIN == v.getVin()) {
@@ -185,11 +184,6 @@ public class Dealership {
                     leaseContract = new LeaseContract(date, customerName, customerEmail, v, isFinance);
                 }
                 isCarFound = true;
-                vehicle.setColor(v.getColor());
-                vehicle.setMake(v.getMake());
-                vehicle.setModel(v.getModel());
-                vehicle.setVin(v.getVin());
-
                 inventory.remove(v);
                 break;
             }
@@ -197,14 +191,14 @@ public class Dealership {
 
         if (isCarFound && leaseOrSell.equalsIgnoreCase("sell")) {
             DealershipFileManager.writeToInventory(inventory);
+            System.out.println("\nSuccess! Vehicle was sold!");
             ContractFileManager.writeToContractsFile(salesContract);
-            System.out.printf("Success! The %s %s %s VIN of %d was sold!",
-                    vehicle.getColor(), vehicle.getMake(), vehicle.getModel(), vehicle.getVin());
+
         } else if (isCarFound && leaseOrSell.equalsIgnoreCase("lease")) {
             DealershipFileManager.writeToInventory(inventory);
+            System.out.println("\nSuccess! Vehicle was leased!");
             ContractFileManager.writeToContractsFile(leaseContract);
-            System.out.printf("Success! The %s %s %s, VIN of %d, was leased!",
-                    vehicle.getColor(), vehicle.getMake(), vehicle.getModel(), vehicle.getVin());
+
         } else {
             System.err.println("ERROR! We could not find a car with that VIN!");
         }
