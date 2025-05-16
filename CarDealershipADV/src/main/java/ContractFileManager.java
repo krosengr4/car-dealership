@@ -26,7 +26,7 @@ public class ContractFileManager {
                     "LEASE" + "|" + contract.getDateOfContract() + "|" + contract.getCustomerName() + "|" + contract.getCustomerEmail()
                             + "|" + vehicle.getVin() + "|" + vehicle.getYear() + "|" + vehicle.getMake() + "|" + vehicle.getModel() + "|"
                             + vehicle.getVehicleType() + "|" + vehicle.getColor() + "|" + vehicle.getOdometer() + "|" + vehicle.getPrice()
-                            + "|" + ((LeaseContract) contract).getExpectedEndingValue() + "|" + ((LeaseContract) contract).getLeaseFee()
+                            + "|" + ((LeaseContract) contract).calculateExpectedEnding() + "|" + ((LeaseContract) contract).calculateLeaseFee()
                             + "|" + contract.calculateTotalPrice() + "|" + contract.calculateMonthlyPayment();
         }
 

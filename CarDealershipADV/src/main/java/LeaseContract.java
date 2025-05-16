@@ -2,6 +2,7 @@ public class LeaseContract extends Contract{
 
     double expectedEndingValue;
     double leaseFee;
+    double recordingFee;
     boolean isFinance;
 
     public LeaseContract(){}
@@ -12,22 +13,31 @@ public class LeaseContract extends Contract{
     }
 
     //region getters and setters
-    public double getExpectedEndingValue() {
-        return expectedEndingValue;
+
+    public void setRecordingFee(double recordingFee) {
+        this.recordingFee = recordingFee;
+    }
+
+    public double getRecordingFee() {
+        return 100;
     }
 
     public void setExpectedEndingValue(double expectedEndingValue) {
         this.expectedEndingValue = expectedEndingValue;
     }
 
-    public double getLeaseFee() {
-        return leaseFee;
-    }
-
     public void setLeaseFee(double leaseFee) {
         this.leaseFee = leaseFee;
     }
     //endregion
+
+    public double calculateExpectedEnding() {
+        return this.vehicleSold.getPrice() * .5;
+    }
+
+    public double calculateLeaseFee() {
+        return this.vehicleSold.getPrice() * .07;
+    }
 
     @Override
     public double calculateMonthlyPayment() {
@@ -36,6 +46,7 @@ public class LeaseContract extends Contract{
 
     @Override
     public double calculateTotalPrice() {
-        return 117;
+        //totalPrice = (price - expectedEndingValue) + leaseFee + recordingFee
+        return (this.vehicleSold.getPrice() - this.calculateExpectedEnding()) + this.calculateLeaseFee() + this.getRecordingFee();
     }
 }
