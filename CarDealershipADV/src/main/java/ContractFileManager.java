@@ -10,7 +10,7 @@ public class ContractFileManager {
 
     public static String filePath = "CarDealershipADV/src/main/resources/contracts.csv";
     public static ArrayList<SalesContract> saleContractsList;
-    public static ArrayList<LeaseContract> leaseContracts;
+    public static ArrayList<LeaseContract> leaseContractsList;
 
     public static void writeToContractsFile(Contract contract) {
 
@@ -52,7 +52,7 @@ public class ContractFileManager {
         }
     }
 
-    public static ArrayList<SalesContract> readSaleContracts(Contract contract) {
+    public static ArrayList<SalesContract> readSaleContracts() {
         saleContractsList = new ArrayList<>();
 
         try {
@@ -91,5 +91,43 @@ public class ContractFileManager {
             throw new RuntimeException(e);
         }
         return saleContractsList;
+    }
+
+    public static ArrayList<LeaseContract> readLeaseContracts() {
+        leaseContractsList = new ArrayList<>();
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            String input;
+
+            while((input = bufferedReader.readLine()) != null) {
+                String[] lineParts = input.split("\\|");
+
+                if (input.isEmpty() || lineParts[0].startsWith("SALE") || lineParts[1].startsWith("DATE")) {
+                    continue;
+                }
+
+                String dateOfContract = lineParts[1];
+                String customerName = lineParts[2];
+                String customerEmail = lineParts[3];
+                int vehicleVIN = Integer.parseInt(lineParts[4]);
+                int vehicleYear = Integer.parseInt(lineParts[5]);
+                String vehicleMake = lineParts[6];
+                String vehicleModel = lineParts[7];
+                String vehicleType = lineParts[8];
+                String vehicleColor = lineParts[9];
+                int vehicleOdometer = Integer.parseInt(lineParts[10]);
+                double vehiclePrice = Integer.parseInt(lineParts[11]);
+
+                Vehicle vehicle = new Vehicle(vehicleVIN, vehicleYear, vehicleMake, vehicleModel, vehicleType, vehicleColor, vehicleOdometer, vehiclePrice);
+                LeaseContract leaseContract = new LeaseContract(dateOfContract, customerName, customerEmail, vehicle);
+
+                leaseContractsList.add(leaseContract);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return leaseContractsList;
     }
 }
