@@ -143,19 +143,21 @@ public class UserInterface {
         String userChoice = UserPrompt.promptGetUserInput("Enter a number: ").trim();
 
         switch (userChoice) {
-            case "1", "2" -> processSellLeaseVehicle(userChoice);
+            case "1" -> processSellVehicle();
+            case "2" -> processLeaseVehicle();
             default -> System.err.println("ERROR! Please enter 1 or 2!");
         }
     }
 
-    private void processSellLeaseVehicle(String userChoice) {
+    private void processSellVehicle() {
         String date = DateTime.getLocalDate();
         String customerName = UserPrompt.promptGetUserInput("Enter customers full name: ").trim();
         String customerEmail = UserPrompt.promptGetUserInput("Enter customers email: ").trim();
-
         String customerFinance = UserPrompt.promptGetUserInput("Does the customer want to finance (Y or N)?: ").trim();
-        boolean isFinance = false;
+        int customerVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you want to sell: ").trim());
+
         boolean isContinue = true;
+        boolean isFinance = false;
 
         while (isContinue) {
             if (customerFinance.equalsIgnoreCase("y")) {
@@ -168,18 +170,50 @@ public class UserInterface {
             }
         }
 
-        int customerVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you want to sell: ").trim());
-        String leaseOrSell = "";
-
-        switch (userChoice) {
-            case "1":
-                leaseOrSell = "sell";
-                dealership.leaseSellVehicle(leaseOrSell, date, customerName, customerEmail, isFinance, customerVIN);
-                break;
-            case "2":
-                leaseOrSell = "lease";
-                dealership.leaseSellVehicle(leaseOrSell, date, customerName, customerEmail, isFinance, customerVIN);
-                break;
-        }
+        dealership.sellVehicle(date, customerName, customerEmail, isFinance, customerVIN);
     }
+
+    private void processLeaseVehicle() {
+        String date = DateTime.getLocalDate();
+        String customerName = UserPrompt.promptGetUserInput("Enter customers full name: ").trim();
+        String customerEmail = UserPrompt.promptGetUserInput("Enter customers email: ").trim();
+        int customerVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you would like to lease: "));
+
+        dealership.leaseVehicle(date, customerName, customerEmail, customerVIN);
+    }
+
+//    private void processSellLeaseVehicle(String userChoice) {
+//        String date = DateTime.getLocalDate();
+//        String customerName = UserPrompt.promptGetUserInput("Enter customers full name: ").trim();
+//        String customerEmail = UserPrompt.promptGetUserInput("Enter customers email: ").trim();
+//
+//        String customerFinance = UserPrompt.promptGetUserInput("Does the customer want to finance (Y or N)?: ").trim();
+//        boolean isFinance = false;
+//        boolean isContinue = true;
+//
+//        while (isContinue) {
+//            if (customerFinance.equalsIgnoreCase("y")) {
+//                isFinance = true;
+//                isContinue = false;
+//            } else if (customerFinance.equalsIgnoreCase("n")) {
+//                isContinue = false;
+//            } else {
+//                System.err.println("ERROR! Please enter y or n!");
+//            }
+//        }
+//
+//        int customerVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you want to sell: ").trim());
+//        String leaseOrSell = "";
+//
+//        switch (userChoice) {
+//            case "1":
+//                leaseOrSell = "sell";
+//                dealership.leaseSellVehicle(leaseOrSell, date, customerName, customerEmail, isFinance, customerVIN);
+//                break;
+//            case "2":
+//                leaseOrSell = "lease";
+//                dealership.leaseSellVehicle(leaseOrSell, date, customerName, customerEmail, isFinance, customerVIN);
+//                break;
+//        }
+//    }
 }
