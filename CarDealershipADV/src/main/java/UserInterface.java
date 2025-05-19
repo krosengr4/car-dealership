@@ -215,7 +215,13 @@ public class UserInterface {
                 System.out.println("\n\t\tOPTIONS:\n1 - Display All Contracts\n 2 - Display Sales Contracts" +
                         "\n3 - Display Lease Contracts\n4 - Back to Main Menu");
                 String adminScreenChoice = UserPrompt.promptGetUserInput("Enter your choice: ").trim();
-                processAdminChoice(adminScreenChoice);
+
+                switch (adminScreenChoice) {
+                    case "1" -> processGetAllContracts();
+                    case "2" -> processGetSaleContracts();
+                    case "3" -> processGetLeaseContracts();
+                    default -> System.err.println("ERROR! Please enter a number 1 - 3");
+                }
             } else {
                 System.err.println("That password is incorrect!");
                 ifContinue = false;
@@ -223,11 +229,15 @@ public class UserInterface {
         } while (ifContinue);
     }
 
-    private void processAdminChoice(String userChoice) {
-        switch(userChoice) {
-            case "1" -> dealership.getAllContracts();
-            case "2" -> dealership.getSalesContracts();
-            case "3" -> dealership.getLeaseContracts();
-        }
+    private void processGetAllContracts() {
+        ArrayList<Contract> allContracts = dealership.getAllContracts();
+    }
+
+    private void processGetSaleContracts() {
+        ArrayList<Contract> salesContracts = dealership.getSalesContracts();
+    }
+
+    private void processGetLeaseContracts() {
+        ArrayList<Contract> leaseContracts = dealership.getLeaseContracts();
     }
 }

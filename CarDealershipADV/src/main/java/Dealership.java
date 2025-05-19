@@ -218,19 +218,32 @@ public class Dealership {
     //Method that gets and returns all contracts
     public ArrayList<Contract> getAllContracts() {
         ArrayList<Contract> allContracts = new ArrayList<>();
+        ArrayList<SalesContract> salesContracts = ContractFileManager.readSaleContracts();
+        ArrayList<LeaseContract> leaseContracts = ContractFileManager.readLeaseContracts();
+
+        allContracts.addAll(salesContracts);
+        allContracts.addAll(leaseContracts);
+
         return allContracts;
     }
 
     //Method that gets and returns sales contracts
     public ArrayList<Contract> getSalesContracts() {
-        ArrayList<Contract> salesContracts = new ArrayList<>();
-        return salesContracts;
+        ArrayList<Contract> contracts= new ArrayList<>();
+        ArrayList<SalesContract> salesContracts = ContractFileManager.readSaleContracts();
+
+        contracts.addAll(salesContracts);
+
+        return contracts;
     }
 
     //Method that gets and returns lease contracts
     public ArrayList<Contract> getLeaseContracts() {
-        ArrayList<Contract> leaseContracts = new ArrayList<>();
-        return leaseContracts;
+        ArrayList<Contract> contracts = new ArrayList<>();
+        ArrayList<LeaseContract> leaseContracts = ContractFileManager.readLeaseContracts();
+
+        contracts.addAll(leaseContracts);
+        return contracts;
     }
 }
 

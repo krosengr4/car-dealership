@@ -66,31 +66,32 @@ public class ContractFileManager {
                      continue;
                  }
 
-                 String dateOfContract = lineParts[1];
-                 String customerName = lineParts[2];
-                 String customerEmail = lineParts[3];
-                 int vehicleVIN = Integer.parseInt(lineParts[4]);
-                 int vehicleYear = Integer.parseInt(lineParts[5]);
-                 String vehicleMake = lineParts[6];
-                 String vehicleModel = lineParts[7];
-                 String vehicleType = lineParts[8];
-                 String vehicleColor = lineParts[9];
-                 int vehicleOdometer = Integer.parseInt(lineParts[10]);
-                 double vehiclePrice = Integer.parseInt(lineParts[11]);
-                 boolean isFinanced = Boolean.parseBoolean(lineParts[17]);
-
-                 Vehicle vehicle = new Vehicle(vehicleVIN, vehicleYear, vehicleMake, vehicleModel, vehicleType, vehicleColor, vehicleOdometer, vehiclePrice);
-
-                 SalesContract salesContract = new SalesContract(dateOfContract, customerName, customerEmail, vehicle, isFinanced);
-
-                 saleContractsList.add(salesContract);
+                SalesContract salesContract = getSalesContract(lineParts);
+                saleContractsList.add(salesContract);
             }
-
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return saleContractsList;
+    }
+
+    private static SalesContract getSalesContract(String[] lineParts) {
+        String dateOfContract = lineParts[1];
+        String customerName = lineParts[2];
+        String customerEmail = lineParts[3];
+        int vehicleVIN = Integer.parseInt(lineParts[4]);
+        int vehicleYear = Integer.parseInt(lineParts[5]);
+        String vehicleMake = lineParts[6];
+        String vehicleModel = lineParts[7];
+        String vehicleType = lineParts[8];
+        String vehicleColor = lineParts[9];
+        int vehicleOdometer = Integer.parseInt(lineParts[10]);
+        double vehiclePrice = Integer.parseInt(lineParts[11]);
+        boolean isFinanced = Boolean.parseBoolean(lineParts[17]);
+
+        Vehicle vehicle = new Vehicle(vehicleVIN, vehicleYear, vehicleMake, vehicleModel, vehicleType, vehicleColor, vehicleOdometer, vehiclePrice);
+
+        return new SalesContract(dateOfContract, customerName, customerEmail, vehicle, isFinanced);
     }
 
     public static ArrayList<LeaseContract> readLeaseContracts() {
@@ -107,27 +108,29 @@ public class ContractFileManager {
                     continue;
                 }
 
-                String dateOfContract = lineParts[1];
-                String customerName = lineParts[2];
-                String customerEmail = lineParts[3];
-                int vehicleVIN = Integer.parseInt(lineParts[4]);
-                int vehicleYear = Integer.parseInt(lineParts[5]);
-                String vehicleMake = lineParts[6];
-                String vehicleModel = lineParts[7];
-                String vehicleType = lineParts[8];
-                String vehicleColor = lineParts[9];
-                int vehicleOdometer = Integer.parseInt(lineParts[10]);
-                double vehiclePrice = Integer.parseInt(lineParts[11]);
-
-                Vehicle vehicle = new Vehicle(vehicleVIN, vehicleYear, vehicleMake, vehicleModel, vehicleType, vehicleColor, vehicleOdometer, vehiclePrice);
-                LeaseContract leaseContract = new LeaseContract(dateOfContract, customerName, customerEmail, vehicle);
-
+                LeaseContract leaseContract = getLeaseContract(lineParts);
                 leaseContractsList.add(leaseContract);
             }
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return leaseContractsList;
+    }
+
+    private static LeaseContract getLeaseContract(String[] lineParts) {
+        String dateOfContract = lineParts[1];
+        String customerName = lineParts[2];
+        String customerEmail = lineParts[3];
+        int vehicleVIN = Integer.parseInt(lineParts[4]);
+        int vehicleYear = Integer.parseInt(lineParts[5]);
+        String vehicleMake = lineParts[6];
+        String vehicleModel = lineParts[7];
+        String vehicleType = lineParts[8];
+        String vehicleColor = lineParts[9];
+        int vehicleOdometer = Integer.parseInt(lineParts[10]);
+        double vehiclePrice = Integer.parseInt(lineParts[11]);
+
+        Vehicle vehicle = new Vehicle(vehicleVIN, vehicleYear, vehicleMake, vehicleModel, vehicleType, vehicleColor, vehicleOdometer, vehiclePrice);
+        return new LeaseContract(dateOfContract, customerName, customerEmail, vehicle);
     }
 }
