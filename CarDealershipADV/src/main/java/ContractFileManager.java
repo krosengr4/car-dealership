@@ -1,11 +1,16 @@
 import com.pluralsight.utils.UserPrompt;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ContractFileManager {
 
     public static String filePath = "CarDealershipADV/src/main/resources/contracts.csv";
+    public static ArrayList<SalesContract> saleContractsList;
+    public static ArrayList<LeaseContract> leaseContracts;
 
     public static void writeToContractsFile(Contract contract) {
 
@@ -45,5 +50,46 @@ public class ContractFileManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static ArrayList<SalesContract> readSaleContracts(Contract contract) {
+        saleContractsList = new ArrayList<>();
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            String input;
+
+            while((input = bufferedReader.readLine()) != null) {
+                String[] lineParts = input.split("\\|");
+
+                 if(input.isEmpty() || lineParts[0].startsWith("LEASE") ||lineParts[1].startsWith("DATE")) {
+                     continue;
+                 }
+
+                 String dateOfContract = lineParts[1];
+                 String customerName = lineParts[2];
+                 String customerEmail = lineParts[3];
+                 int vehicleVIN = Integer.parseInt(lineParts[4]);
+                 int vehicleYear = Integer.parseInt(lineParts[5]);
+                 String vehicleMake = lineParts[6];
+                 String vehicleModel = lineParts[7];
+                 String vehicleType = lineParts[8];
+                 String vehicleColor = lineParts[9];
+                 int vehicleOdometer = Integer.parseInt(lineParts[10]);
+                 double vehiclePrice = Integer.parseInt(lineParts[11]);
+                 boolean isFinanced = Boolean.parseBoolean(lineParts[17]);
+
+                 Vehicle vehicle = new Vehicle(vehicleVIN, vehicleYear, vehicleMake, vehicleModel, vehicleType, vehicleColor, vehicleOdometer, vehiclePrice);
+
+                 SalesContract salesContract = new SalesContract(dateOfContract, customerName, customerEmail, vehicle, isFinanced);
+
+                 saleContractsList.add(salesContract);
+            }
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return saleContractsList;
     }
 }
