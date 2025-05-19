@@ -214,5 +214,23 @@ public class Dealership {
             System.err.println("ERROR! We could not find a car with that VIN!");
         }
     }
+
+    //Method that gets and returns all contracts
+    public ArrayList<Contract> getAllContracts() {
+        ArrayList<Contract> allContracts = new ArrayList<>();
+        return allContracts;
+    }
+
+    //Method that gets and returns sales contracts
+    public ArrayList<Contract> getSalesContracts() {
+        ArrayList<Contract> salesContracts = new ArrayList<>();
+        return salesContracts;
+    }
+
+    //Method that gets and returns lease contracts
+    public ArrayList<Contract> getLeaseContracts() {
+        ArrayList<Contract> leaseContracts = new ArrayList<>();
+        return leaseContracts;
+    }
 }
 

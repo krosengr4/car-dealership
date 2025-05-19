@@ -25,6 +25,7 @@ public class UserInterface {
                 case "8" -> processAddAVehicle();
                 case "9" -> processRemoveAVehicle();
                 case "10" -> displaySellLease();
+                case "00" -> displayAdminScreen();
                 case "99" -> ifContinue = false;
                 default -> System.err.println("ERROR! Please enter a number between 1 - 9, or 99 to exit!");
             }
@@ -42,6 +43,7 @@ public class UserInterface {
                 4 - Find Car by Color               9 - Remove a Vehicle
                 5 - Find Car by Mileage             10 - Sell or Lease a Vehicle
                                         99 - Exit
+                                        00 - Admin
                 """);
 
         return UserPrompt.promptGetUserInput("What would you like to do?: ").trim();
@@ -196,5 +198,36 @@ public class UserInterface {
         int customerVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you would like to lease: "));
 
         dealership.leaseVehicle(date, customerName, customerEmail, customerVIN);
+    }
+
+//    private void displayContracts(ArrayList<Contract> contracts) {
+//        for (Contract c : contracts) {
+//
+//        }
+//    }
+
+    private void displayAdminScreen() {
+        boolean ifContinue = true;
+        do {
+            String getPassword = UserPrompt.promptGetUserInput("Please Enter Admin Password: ");
+
+            if (getPassword.equalsIgnoreCase("Hotdogs ")) {
+                System.out.println("\n\t\tOPTIONS:\n1 - Display All Contracts\n 2 - Display Sales Contracts" +
+                        "\n3 - Display Lease Contracts\n4 - Back to Main Menu");
+                String adminScreenChoice = UserPrompt.promptGetUserInput("Enter your choice: ").trim();
+                processAdminChoice(adminScreenChoice);
+            } else {
+                System.err.println("That password is incorrect!");
+                ifContinue = false;
+            }
+        } while (ifContinue);
+    }
+
+    private void processAdminChoice(String userChoice) {
+        switch(userChoice) {
+            case "1" -> dealership.getAllContracts();
+            case "2" -> dealership.getSalesContracts();
+            case "3" -> dealership.getLeaseContracts();
+        }
     }
 }
