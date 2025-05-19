@@ -167,43 +167,7 @@ public class Dealership {
         UserPrompt.pauseApp();
     }
 
-    //Method to create a lease or sales contract for a vehicle, remove that vehicle from the inventory, and write the contract to the contracts file
-//    public void leaseSellVehicle(String leaseOrSell, String date, String customerName, String customerEmail, boolean isFinance, int VIN) {
-//
-//        inventory = DealershipFileManager.getInventory();
-//        LeaseContract leaseContract = new LeaseContract();
-//        SalesContract salesContract = new SalesContract();
-//
-//        boolean isCarFound = false;
-//
-//        for (Vehicle v : inventory) {
-//            if (VIN == v.getVin()) {
-//                if (leaseOrSell.equalsIgnoreCase("sell")) {
-//                    salesContract = new SalesContract(date, customerName, customerEmail, v, isFinance);
-//                } else if (leaseOrSell.equalsIgnoreCase("lease")) {
-//                    leaseContract = new LeaseContract(date, customerName, customerEmail, v, isFinance);
-//                }
-//                isCarFound = true;
-//                inventory.remove(v);
-//                break;
-//            }
-//        }
-//
-//        if (isCarFound && leaseOrSell.equalsIgnoreCase("sell")) {
-//            DealershipFileManager.writeToInventory(inventory);
-//            System.out.println("\nSuccess! Vehicle was sold!");
-//            ContractFileManager.writeToContractsFile(salesContract);
-//
-//        } else if (isCarFound && leaseOrSell.equalsIgnoreCase("lease")) {
-//            DealershipFileManager.writeToInventory(inventory);
-//            System.out.println("\nSuccess! Vehicle was leased!");
-//            ContractFileManager.writeToContractsFile(leaseContract);
-//
-//        } else {
-//            System.err.println("ERROR! We could not find a car with that VIN!");
-//        }
-//    }
-
+    //Method that creates a new sell contract and calls write to contracts file method
     public void sellVehicle(String date, String customerName, String customerEmail, boolean isFinance, int VIN) {
 
         inventory = DealershipFileManager.getInventory();
@@ -227,6 +191,7 @@ public class Dealership {
         }
     }
 
+    //Method that creates a new lease contract and calls write to contracts file method
     public void leaseVehicle(String date, String customerName, String customerEmail, int VIN) {
 
         inventory = DealershipFileManager.getInventory();

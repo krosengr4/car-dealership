@@ -6,6 +6,7 @@ public class UserInterface {
 
     Dealership dealership;
 
+    //Method to process a users choice from the main menu, and call the corresponding method
     public void display() {
         boolean ifContinue = true;
 
@@ -30,6 +31,7 @@ public class UserInterface {
         }
     }
 
+    //Method to display the main menu and prompt user for a choice
     private String menuChoice() {
         System.out.println("\n\t\t\t\t\t\tMAIN MENU");
         Design.designLine(70, false);
@@ -45,11 +47,13 @@ public class UserInterface {
         return UserPrompt.promptGetUserInput("What would you like to do?: ").trim();
     }
 
+    //Method to instantiate a DealershipFileManager object and initialize the dealership
     private void init() {
         DealershipFileManager dfm = new DealershipFileManager();
         this.dealership = dfm.getDealership();
     }
 
+    //Method to display the list of vehicles based on user request
     private void displayVehicles(ArrayList<Vehicle> vehicles) {
         if (vehicles.isEmpty()) {
             System.out.println("There are no vehicles...");
@@ -63,11 +67,13 @@ public class UserInterface {
         UserPrompt.pauseApp();
     }
 
+    //Method to process a users request to display all vehicles
     private void processAllVehiclesRequest() {
         ArrayList<Vehicle> allVehicles = dealership.getAllVehicles();
         displayVehicles(allVehicles);
     }
 
+    //Method to allow user to search vehicles based on a price range
     private void processGetByPriceRequest() {
         int userMin = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the minimum price: ").trim());
         int userMax = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the maximum price: ").trim());
@@ -77,6 +83,7 @@ public class UserInterface {
         displayVehicles(priceRangeVehicles);
     }
 
+    //Method to allow user to search vehicles based on make and model
     private void processGetByMakeModel() {
         String userMake = UserPrompt.promptGetUserInput("Enter the make of the vehicle: ").trim();
         String userModel = UserPrompt.promptGetUserInput("Enter the model of the vehicle: ").trim();
@@ -86,6 +93,7 @@ public class UserInterface {
         displayVehicles(vehiclesByMakeModel);
     }
 
+    //Method to allow user to search vehicles based on a year range
     private void processGetByYear() {
         int yearMin = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the minimum year: ").trim());
         int yearMax = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the maximum year: ").trim());
@@ -95,6 +103,7 @@ public class UserInterface {
         displayVehicles(vehiclesByYear);
     }
 
+    //Method to allow user to search vehicles based on color
     private void processGetByColor() {
         String userColor = UserPrompt.promptGetUserInput("Enter a color: ").trim();
 
@@ -102,6 +111,7 @@ public class UserInterface {
         displayVehicles(vehiclesByColor);
     }
 
+    //Method to allow user to search vehicles based on odometer range
     private void processGetByOdometer() {
         int odometerMin = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the minimum amount of miles: ").trim());
         int odometerMax = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the maximum amount of miles: ").trim());
@@ -110,6 +120,7 @@ public class UserInterface {
         displayVehicles(vehiclesByOdometer);
     }
 
+    //Method to allow user to search vehicles based on the vehicle type
     private void processGetByType() {
         String userType = UserPrompt.promptGetUserInput("Enter the type of vehicle (SUV, Truck, etc...): ");
 
@@ -117,6 +128,7 @@ public class UserInterface {
         displayVehicles(vehiclesByType);
     }
 
+    //Method to allow user to add a vehicle
     private void processAddAVehicle() {
         int newVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the new vehicle: ").trim());
         int newYear = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the year of the new vehicle: ").trim());
@@ -132,12 +144,14 @@ public class UserInterface {
         dealership.addVehicle(newVehicle);
     }
 
+    //Method to allow user to remove a vehicle based on VIN
     private void processRemoveAVehicle() {
         int userRemove = Integer.parseInt(UserPrompt.promptGetUserInput("Please enter the VIN of the Vehicle you'd like to remove: ").trim());
 
         dealership.removeVehicle(userRemove);
     }
 
+    //Method to options to sell a vehicle or lease a vehicle
     private void displaySellLease() {
         System.out.println("Sell or Lease?\n1 - Sell\n2 - Lease");
         String userChoice = UserPrompt.promptGetUserInput("Enter a number: ").trim();
@@ -149,6 +163,7 @@ public class UserInterface {
         }
     }
 
+    //Method to allow user to sell a vehicle to a customer based on VIN
     private void processSellVehicle() {
         String date = DateTime.getLocalDate();
         String customerName = UserPrompt.promptGetUserInput("Enter customers full name: ").trim();
@@ -173,6 +188,7 @@ public class UserInterface {
         dealership.sellVehicle(date, customerName, customerEmail, isFinance, customerVIN);
     }
 
+    //Method to allow user to lease a vehicle to a customer based on VIN
     private void processLeaseVehicle() {
         String date = DateTime.getLocalDate();
         String customerName = UserPrompt.promptGetUserInput("Enter customers full name: ").trim();
@@ -181,39 +197,4 @@ public class UserInterface {
 
         dealership.leaseVehicle(date, customerName, customerEmail, customerVIN);
     }
-
-//    private void processSellLeaseVehicle(String userChoice) {
-//        String date = DateTime.getLocalDate();
-//        String customerName = UserPrompt.promptGetUserInput("Enter customers full name: ").trim();
-//        String customerEmail = UserPrompt.promptGetUserInput("Enter customers email: ").trim();
-//
-//        String customerFinance = UserPrompt.promptGetUserInput("Does the customer want to finance (Y or N)?: ").trim();
-//        boolean isFinance = false;
-//        boolean isContinue = true;
-//
-//        while (isContinue) {
-//            if (customerFinance.equalsIgnoreCase("y")) {
-//                isFinance = true;
-//                isContinue = false;
-//            } else if (customerFinance.equalsIgnoreCase("n")) {
-//                isContinue = false;
-//            } else {
-//                System.err.println("ERROR! Please enter y or n!");
-//            }
-//        }
-//
-//        int customerVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you want to sell: ").trim());
-//        String leaseOrSell = "";
-//
-//        switch (userChoice) {
-//            case "1":
-//                leaseOrSell = "sell";
-//                dealership.leaseSellVehicle(leaseOrSell, date, customerName, customerEmail, isFinance, customerVIN);
-//                break;
-//            case "2":
-//                leaseOrSell = "lease";
-//                dealership.leaseSellVehicle(leaseOrSell, date, customerName, customerEmail, isFinance, customerVIN);
-//                break;
-//        }
-//    }
 }
