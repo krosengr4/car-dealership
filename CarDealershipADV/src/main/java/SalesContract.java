@@ -53,7 +53,7 @@ public class SalesContract extends Contract {
 
     @Override
     public double calculateMonthlyPayment() {
-        //M = P [ i(1 + i)^n ] / [ (1 + i)^n
+        //M = P [ i(1 + i)^n ] / [ (1 + i)^n-1
         //P = loan amount
         //i = monthly interest rate
         //n = number of months
@@ -63,12 +63,12 @@ public class SalesContract extends Contract {
             double monthlyInterest = .0425 / 12;
             double numberOfMonths = 48;
 
-            return loanAmount * (monthlyInterest * Math.pow((1 + monthlyInterest), numberOfMonths)) / (Math.pow(1 + monthlyInterest, numberOfMonths));
+            return loanAmount * (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfMonths) / (Math.pow(1 + monthlyInterest, numberOfMonths) - 1));
         } else if (this.isFinance && this.vehicleSold.getPrice() < 10000) {
             double monthlyInterest = .0525 / 12;
             double numberOfMonths = 24;
 
-            return loanAmount * (monthlyInterest * Math.pow((1 + monthlyInterest), numberOfMonths)) / (Math.pow(1 + monthlyInterest, numberOfMonths));
+            return loanAmount * (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfMonths) / (Math.pow(1 + monthlyInterest, numberOfMonths) - 1));
         } else {
             return 0.00;
         }

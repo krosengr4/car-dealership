@@ -31,11 +31,11 @@ class SalesContractTest {
     @Test
     void calculateMonthlyPayment() {
         salesContract.setVehicleSold(vehicle);
-        salesContract.setFinance(false);
+        salesContract.setFinance(true);
 
         double actual = salesContract.calculateMonthlyPayment();
 
-        assertEquals(0.00, actual, .01);
+        assertEquals(63.33, actual, .01);
     }
 
     @Test
