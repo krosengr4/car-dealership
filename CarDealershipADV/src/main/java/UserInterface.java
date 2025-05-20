@@ -46,7 +46,7 @@ public class UserInterface {
                                         00 - Admin
                 """);
 
-        return UserPrompt.promptGetUserInput("What would you like to do?: ").trim();
+        return UserIO.promptGetUserInput("What would you like to do?: ").trim();
     }
 
     //Method to instantiate a DealershipFileManager object and initialize the dealership
@@ -66,7 +66,7 @@ public class UserInterface {
                         vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
             }
         }
-        UserPrompt.pauseApp();
+        UserIO.pauseApp();
     }
 
     //Method to process a users request to display all vehicles
@@ -77,8 +77,8 @@ public class UserInterface {
 
     //Method to allow user to search vehicles based on a price range
     private void processGetByPriceRequest() {
-        int userMin = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the minimum price: ").trim());
-        int userMax = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the maximum price: ").trim());
+        int userMin = Integer.parseInt(UserIO.promptGetUserInput("Enter the minimum price: ").trim());
+        int userMax = Integer.parseInt(UserIO.promptGetUserInput("Enter the maximum price: ").trim());
 
         ArrayList<Vehicle> priceRangeVehicles = dealership.getVehiclesByPrice(userMin, userMax);
 
@@ -87,8 +87,8 @@ public class UserInterface {
 
     //Method to allow user to search vehicles based on make and model
     private void processGetByMakeModel() {
-        String userMake = UserPrompt.promptGetUserInput("Enter the make of the vehicle: ").trim();
-        String userModel = UserPrompt.promptGetUserInput("Enter the model of the vehicle: ").trim();
+        String userMake = UserIO.promptGetUserInput("Enter the make of the vehicle: ").trim();
+        String userModel = UserIO.promptGetUserInput("Enter the model of the vehicle: ").trim();
 
         ArrayList<Vehicle> vehiclesByMakeModel = dealership.getVehicleByMakeModel(userMake, userModel);
 
@@ -97,8 +97,8 @@ public class UserInterface {
 
     //Method to allow user to search vehicles based on a year range
     private void processGetByYear() {
-        int yearMin = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the minimum year: ").trim());
-        int yearMax = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the maximum year: ").trim());
+        int yearMin = Integer.parseInt(UserIO.promptGetUserInput("Enter the minimum year: ").trim());
+        int yearMax = Integer.parseInt(UserIO.promptGetUserInput("Enter the maximum year: ").trim());
 
         ArrayList<Vehicle> vehiclesByYear = dealership.getVehiclesByYear(yearMin, yearMax);
 
@@ -107,7 +107,7 @@ public class UserInterface {
 
     //Method to allow user to search vehicles based on color
     private void processGetByColor() {
-        String userColor = UserPrompt.promptGetUserInput("Enter a color: ").trim();
+        String userColor = UserIO.promptGetUserInput("Enter a color: ").trim();
 
         ArrayList<Vehicle> vehiclesByColor = dealership.getVehiclesByColor(userColor);
         displayVehicles(vehiclesByColor);
@@ -115,8 +115,8 @@ public class UserInterface {
 
     //Method to allow user to search vehicles based on odometer range
     private void processGetByOdometer() {
-        int odometerMin = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the minimum amount of miles: ").trim());
-        int odometerMax = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the maximum amount of miles: ").trim());
+        int odometerMin = Integer.parseInt(UserIO.promptGetUserInput("Enter the minimum amount of miles: ").trim());
+        int odometerMax = Integer.parseInt(UserIO.promptGetUserInput("Enter the maximum amount of miles: ").trim());
 
         ArrayList<Vehicle> vehiclesByOdometer = dealership.getVehiclesByMileage(odometerMin, odometerMax);
         displayVehicles(vehiclesByOdometer);
@@ -124,7 +124,7 @@ public class UserInterface {
 
     //Method to allow user to search vehicles based on the vehicle type
     private void processGetByType() {
-        String userType = UserPrompt.promptGetUserInput("Enter the type of vehicle (SUV, Truck, etc...): ");
+        String userType = UserIO.promptGetUserInput("Enter the type of vehicle (SUV, Truck, etc...): ");
 
         ArrayList<Vehicle> vehiclesByType = dealership.getVehiclesByType(userType);
         displayVehicles(vehiclesByType);
@@ -132,14 +132,14 @@ public class UserInterface {
 
     //Method to allow user to add a vehicle
     private void processAddAVehicle() {
-        int newVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the new vehicle: ").trim());
-        int newYear = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the year of the new vehicle: ").trim());
-        String newMake = UserPrompt.promptGetUserInput("Enter the make of the new vehicle: ").trim();
-        String newModel = UserPrompt.promptGetUserInput("Enter the model of the new vehicle: ").trim();
-        String newType = UserPrompt.promptGetUserInput("Enter the type of the new vehicle: ").trim();
-        String newColor = UserPrompt.promptGetUserInput("Enter the color of the new vehicle: ").trim();
-        int newOdometer = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the odometer reading of the new vehicle: ").trim());
-        double newPrice = Double.parseDouble(UserPrompt.promptGetUserInput("Enter the price of the new vehicle: ").trim());
+        int newVIN = Integer.parseInt(UserIO.promptGetUserInput("Enter the VIN of the new vehicle: ").trim());
+        int newYear = Integer.parseInt(UserIO.promptGetUserInput("Enter the year of the new vehicle: ").trim());
+        String newMake = UserIO.promptGetUserInput("Enter the make of the new vehicle: ").trim();
+        String newModel = UserIO.promptGetUserInput("Enter the model of the new vehicle: ").trim();
+        String newType = UserIO.promptGetUserInput("Enter the type of the new vehicle: ").trim();
+        String newColor = UserIO.promptGetUserInput("Enter the color of the new vehicle: ").trim();
+        int newOdometer = Integer.parseInt(UserIO.promptGetUserInput("Enter the odometer reading of the new vehicle: ").trim());
+        double newPrice = Double.parseDouble(UserIO.promptGetUserInput("Enter the price of the new vehicle: ").trim());
 
         Vehicle newVehicle = new Vehicle(newVIN, newYear, newMake, newModel, newType, newColor, newOdometer, newPrice);
 
@@ -148,7 +148,7 @@ public class UserInterface {
 
     //Method to allow user to remove a vehicle based on VIN
     private void processRemoveAVehicle() {
-        int userRemove = Integer.parseInt(UserPrompt.promptGetUserInput("Please enter the VIN of the Vehicle you'd like to remove: ").trim());
+        int userRemove = Integer.parseInt(UserIO.promptGetUserInput("Please enter the VIN of the Vehicle you'd like to remove: ").trim());
 
         dealership.removeVehicle(userRemove);
     }
@@ -156,7 +156,7 @@ public class UserInterface {
     //Method to options to sell a vehicle or lease a vehicle
     private void displaySellLease() {
         System.out.println("Sell or Lease?\n1 - Sell\n2 - Lease");
-        String userChoice = UserPrompt.promptGetUserInput("Enter a number: ").trim();
+        String userChoice = UserIO.promptGetUserInput("Enter a number: ").trim();
 
         switch (userChoice) {
             case "1" -> processSellVehicle();
@@ -168,10 +168,10 @@ public class UserInterface {
     //Method to allow user to sell a vehicle to a customer based on VIN
     private void processSellVehicle() {
         String date = DateTime.getLocalDate();
-        String customerName = UserPrompt.promptGetUserInput("Enter customers full name: ").trim();
-        String customerEmail = UserPrompt.promptGetUserInput("Enter customers email: ").trim();
-        String customerFinance = UserPrompt.promptGetUserInput("Does the customer want to finance (Y or N)?: ").trim();
-        int customerVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you want to sell: ").trim());
+        String customerName = UserIO.promptGetUserInput("Enter customers full name: ").trim();
+        String customerEmail = UserIO.promptGetUserInput("Enter customers email: ").trim();
+        String customerFinance = UserIO.promptGetUserInput("Does the customer want to finance (Y or N)?: ").trim();
+        int customerVIN = Integer.parseInt(UserIO.promptGetUserInput("Enter the VIN of the vehicle you want to sell: ").trim());
 
         boolean isFinance = customerFinance.equalsIgnoreCase("y");
 
@@ -181,13 +181,14 @@ public class UserInterface {
     //Method to allow user to lease a vehicle to a customer based on VIN
     private void processLeaseVehicle() {
         String date = DateTime.getLocalDate();
-        String customerName = UserPrompt.promptGetUserInput("Enter customers full name: ").trim();
-        String customerEmail = UserPrompt.promptGetUserInput("Enter customers email: ").trim();
-        int customerVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you would like to lease: "));
+        String customerName = UserIO.promptGetUserInput("Enter customers full name: ").trim();
+        String customerEmail = UserIO.promptGetUserInput("Enter customers email: ").trim();
+        int customerVIN = Integer.parseInt(UserIO.promptGetUserInput("Enter the VIN of the vehicle you would like to lease: "));
 
         dealership.leaseVehicle(date, customerName, customerEmail, customerVIN);
     }
 
+    //Method to display list of contracts passed in
     private void displayContracts(ArrayList<Contract> contracts) {
         for (Contract c : contracts) {
             if (c instanceof SalesContract) {
@@ -211,12 +212,13 @@ public class UserInterface {
 
             }
         }
-        UserPrompt.pauseApp();
+        UserIO.pauseApp();
     }
 
+    //Method to display The Admin Screen
     private void displayAdminScreen() {
 
-        String getPassword = UserPrompt.promptGetUserInput("Please Enter Admin Password: ");
+        String getPassword = UserIO.promptGetUserInput("Please Enter Admin Password: ");
 
         if (getPassword.equals("Hotdogs")) {
             System.out.println("""
@@ -226,7 +228,7 @@ public class UserInterface {
                     2 - Display Sales Contracts
                     3 - Display Lease Contracts
                     4 - Back to Main Menu""");
-            String adminScreenChoice = UserPrompt.promptGetUserInput("Enter your choice: ").trim();
+            String adminScreenChoice = UserIO.promptGetUserInput("Enter your choice: ").trim();
 
             processAdminScreenChoice(adminScreenChoice);
 
@@ -235,6 +237,7 @@ public class UserInterface {
         }
     }
 
+    //method to process the users choice from admin screen
     private void processAdminScreenChoice(String userAdminChoice) {
         switch (userAdminChoice) {
             case "1":

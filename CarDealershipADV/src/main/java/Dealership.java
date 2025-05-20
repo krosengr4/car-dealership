@@ -1,4 +1,4 @@
-import com.pluralsight.utils.UserPrompt;
+import com.pluralsight.utils.*;
 
 import java.util.ArrayList;
 
@@ -164,7 +164,7 @@ public class Dealership {
             System.err.println("Could not find car with that VIN...");
         }
 
-        UserPrompt.pauseApp();
+        UserIO.pauseApp();
     }
 
     //Method that creates a new sell contract and calls write to contracts file method

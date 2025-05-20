@@ -1,4 +1,4 @@
-import com.pluralsight.utils.UserPrompt;
+import com.pluralsight.utils.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -46,7 +46,7 @@ public class ContractFileManager {
             } else {
                 System.err.println("ERROR! This contract is null!!!");
             }
-            UserPrompt.pauseApp();
+            UserIO.pauseApp();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
