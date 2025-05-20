@@ -200,19 +200,38 @@ public class UserInterface {
         dealership.leaseVehicle(date, customerName, customerEmail, customerVIN);
     }
 
-//    private void displayContracts(ArrayList<Contract> contracts) {
-//        for (Contract c : contracts) {
-//
-//        }
-//    }
+    private void displayContracts(ArrayList<Contract> contracts) {
+        for (Contract c : contracts) {
+            if (c instanceof SalesContract) {
+                System.out.printf(
+                        """
+                                SALE|DATE|NAME|EMAIL|VVIN|VYEAR|VMAKE|VMODEL|VTYPE|VCOLOR|VODOMETER|VPRICE|SALESTAX|RECORDINGFEE|PROCESSINGFEE|TOTALPRICE|ISFINANCED|MONTHLYPAYMENT
+                                SALE | %s | %s | %s | %d | %d | %s | %s | %s | %s | %d | %.2f | %.2f | %.2f | %.2f | %b | %.2f
+                                """, c.getDateOfContract(), c.getCustomerName(), c.getCustomerEmail(), c.getVehicleSold().getVin(), c.getVehicleSold().getYear(),
+                        c.getVehicleSold().getMake(), c.getVehicleSold().getModel(), c.getVehicleSold().getVehicleType(), c.getVehicleSold().getColor(),
+                        c.getVehicleSold().getOdometer(), c.getVehicleSold().getPrice(), ((SalesContract) c).calculateSalesTax(),
+                        ((SalesContract) c).getRecordingFee(), c.calculateTotalPrice(), ((SalesContract) c).isFinance(), c.calculateMonthlyPayment());
+            } else if (c instanceof LeaseContract) {
+                System.out.printf(
+                        """
+                                LEASE|DATE|NAME|EMAIL|VVIN|VYEAR|VMAKE|VMODEL|VTYPE|VCOLOR|VODOMETER|VPRICE|EXPECTEDENDING|LEASEFEE|TOTALPRICE|MONTHLYPAYMENT
+                                LEASE | %s | %s | %s | %d | %d | %s | %s | %s | %s | %d | %.2f | %.2f | %.2f | %.2f | %.2f
+                                """, c.getDateOfContract(), c.getCustomerName(), c.getCustomerEmail(), c.getVehicleSold().getVin(), c.getVehicleSold().getYear(),
+                        c.getVehicleSold().getMake(), c.getVehicleSold().getModel(), c.getVehicleSold().getVehicleType(), c.getVehicleSold().getColor(),
+                        c.getVehicleSold().getOdometer(), c.getVehicleSold().getPrice(), ((LeaseContract) c).calculateExpectedEnding(),
+                        ((LeaseContract) c).calculateLeaseFee(), c.calculateTotalPrice(), c.calculateMonthlyPayment());
+
+            }
+        }
+    }
 
     private void displayAdminScreen() {
         boolean ifContinue = true;
         do {
             String getPassword = UserPrompt.promptGetUserInput("Please Enter Admin Password: ");
 
-            if (getPassword.equalsIgnoreCase("Hotdogs ")) {
-                System.out.println("\n\t\tOPTIONS:\n1 - Display All Contracts\n 2 - Display Sales Contracts" +
+            if (getPassword.equals("Hotdogs")) {
+                System.out.println("\n\t\tOPTIONS:\n1 - Display All Contracts\n2 - Display Sales Contracts" +
                         "\n3 - Display Lease Contracts\n4 - Back to Main Menu");
                 String adminScreenChoice = UserPrompt.promptGetUserInput("Enter your choice: ").trim();
 
@@ -220,6 +239,7 @@ public class UserInterface {
                     case "1" -> processGetAllContracts();
                     case "2" -> processGetSaleContracts();
                     case "3" -> processGetLeaseContracts();
+                    case "4" -> ifContinue = false;
                     default -> System.err.println("ERROR! Please enter a number 1 - 3");
                 }
             } else {
@@ -231,6 +251,7 @@ public class UserInterface {
 
     private void processGetAllContracts() {
         ArrayList<Contract> allContracts = dealership.getAllContracts();
+
     }
 
     private void processGetSaleContracts() {
