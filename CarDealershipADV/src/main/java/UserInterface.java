@@ -223,42 +223,39 @@ public class UserInterface {
 
             }
         }
+        UserPrompt.pauseApp();
     }
 
     private void displayAdminScreen() {
-        boolean ifContinue = true;
-        do {
-            String getPassword = UserPrompt.promptGetUserInput("Please Enter Admin Password: ");
 
-            if (getPassword.equals("Hotdogs")) {
-                System.out.println("\n\t\tOPTIONS:\n1 - Display All Contracts\n2 - Display Sales Contracts" +
-                        "\n3 - Display Lease Contracts\n4 - Back to Main Menu");
-                String adminScreenChoice = UserPrompt.promptGetUserInput("Enter your choice: ").trim();
+        String getPassword = UserPrompt.promptGetUserInput("Please Enter Admin Password: ");
 
-                switch (adminScreenChoice) {
-                    case "1" -> processGetAllContracts();
-                    case "2" -> processGetSaleContracts();
-                    case "3" -> processGetLeaseContracts();
-                    case "4" -> ifContinue = false;
-                    default -> System.err.println("ERROR! Please enter a number 1 - 3");
-                }
-            } else {
-                System.err.println("That password is incorrect!");
-                ifContinue = false;
-            }
-        } while (ifContinue);
+        if (getPassword.equals("Hotdogs")) {
+            System.out.println("\n\t\tOPTIONS:\n1 - Display All Contracts\n2 - Display Sales Contracts" +
+                    "\n3 - Display Lease Contracts\n4 - Back to Main Menu");
+            String adminScreenChoice = UserPrompt.promptGetUserInput("Enter your choice: ").trim();
+
+            processAdminScreenChoice(adminScreenChoice);
+
+        } else {
+            System.err.println("That password is incorrect!");
+        }
     }
 
-    private void processGetAllContracts() {
-        ArrayList<Contract> allContracts = dealership.getAllContracts();
-
-    }
-
-    private void processGetSaleContracts() {
-        ArrayList<Contract> salesContracts = dealership.getSalesContracts();
-    }
-
-    private void processGetLeaseContracts() {
-        ArrayList<Contract> leaseContracts = dealership.getLeaseContracts();
+    private void processAdminScreenChoice(String userAdminChoice) {
+        switch (userAdminChoice) {
+            case "1":
+                ArrayList<Contract> allContracts = dealership.getAllContracts();
+                displayContracts(allContracts);
+                break;
+            case "2":
+                ArrayList<Contract> salesContracts = dealership.getSalesContracts();
+                displayContracts(salesContracts);
+                break;
+            case "3":
+                ArrayList<Contract> leaseContracts = dealership.getLeaseContracts();
+                displayContracts(leaseContracts);
+                break;
+        }
     }
 }
