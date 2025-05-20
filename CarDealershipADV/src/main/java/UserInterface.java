@@ -173,19 +173,7 @@ public class UserInterface {
         String customerFinance = UserPrompt.promptGetUserInput("Does the customer want to finance (Y or N)?: ").trim();
         int customerVIN = Integer.parseInt(UserPrompt.promptGetUserInput("Enter the VIN of the vehicle you want to sell: ").trim());
 
-        boolean isContinue = true;
-        boolean isFinance = false;
-
-        while (isContinue) {
-            if (customerFinance.equalsIgnoreCase("y")) {
-                isFinance = true;
-                isContinue = false;
-            } else if (customerFinance.equalsIgnoreCase("n")) {
-                isContinue = false;
-            } else {
-                System.err.println("ERROR! Please enter y or n!");
-            }
-        }
+        boolean isFinance = customerFinance.equalsIgnoreCase("y");
 
         dealership.sellVehicle(date, customerName, customerEmail, isFinance, customerVIN);
     }
@@ -231,8 +219,13 @@ public class UserInterface {
         String getPassword = UserPrompt.promptGetUserInput("Please Enter Admin Password: ");
 
         if (getPassword.equals("Hotdogs")) {
-            System.out.println("\n\t\tOPTIONS:\n1 - Display All Contracts\n2 - Display Sales Contracts" +
-                    "\n3 - Display Lease Contracts\n4 - Back to Main Menu");
+            System.out.println("""
+                    
+                    \t\tOPTIONS:
+                    1 - Display All Contracts
+                    2 - Display Sales Contracts
+                    3 - Display Lease Contracts
+                    4 - Back to Main Menu""");
             String adminScreenChoice = UserPrompt.promptGetUserInput("Enter your choice: ").trim();
 
             processAdminScreenChoice(adminScreenChoice);

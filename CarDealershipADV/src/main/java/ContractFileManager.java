@@ -20,7 +20,7 @@ public class ContractFileManager {
         if (contract instanceof SalesContract) {
             contractAttributes =
                     "SALE" + "|" + contract.getDateOfContract() + "|" + contract.getCustomerName() + "|" + contract.getCustomerEmail()
-                            + "|" + "|" + vehicle.getVin() + "|" + vehicle.getYear() + "|" + vehicle.getMake() + "|" + vehicle.getModel() + "|"
+                            + "|" + vehicle.getVin() + "|" + vehicle.getYear() + "|" + vehicle.getMake() + "|" + vehicle.getModel() + "|"
                             + vehicle.getVehicleType() + "|" + vehicle.getColor() + "|" + vehicle.getOdometer() + "|" + vehicle.getPrice() + "|"
                             + ((SalesContract) contract).calculateSalesTax() + "|" + ((SalesContract) contract).getRecordingFee() + "|"
                             + ((SalesContract) contract).calculateProcessingFee() + "|" + contract.calculateTotalPrice() + "|" + ((SalesContract) contract).isFinance
