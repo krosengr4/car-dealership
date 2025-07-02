@@ -4,8 +4,11 @@ import Data.VehicleDao;
 import Models.Vehicle;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
@@ -16,7 +19,22 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 
 	@Override
 	public List<Vehicle> getAll() {
-		return null;
+		List<Vehicle> vehiclesList = new ArrayList<>();
+		String query = "SELECT * FROM vehicles;";
+
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			ResultSet results = statement.executeQuery();
+
+			while(results.next()) {
+				Vehicle vehicle = mapRow(results);
+				vehiclesList.add(vehicle);
+			}
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return vehiclesList;
 	}
 
 	@Override
