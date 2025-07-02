@@ -5,8 +5,9 @@ import Utilities.Utils;
 public class UserInterface {
 
 	public int displayMainMenu() {
-		System.out.println("\n\t\t\t_____MAIN MENU_____");
-		Utils.designLine(70, false);
+		Utils.designLine(55, false);
+		System.out.println("\t\t\t\t\tMAIN MENU");
+		Utils.designLine(55, false);
 		System.out.println("""
 									---OPTIONS---
 				1 - Go to Vehicle Menu			3 - Sell or Lease Vehicle
@@ -18,8 +19,9 @@ public class UserInterface {
 	}
 
 	public int displayVehicleMenu() {
-		System.out.println("\n\t\t\t_____VEHICLE MENU_____");
-		Utils.designLine(70, false);
+		Utils.designLine(60, false);
+		System.out.println("\t\t\t\t\t  VEHICLE MENU");
+		Utils.designLine(60, false);
 		System.out.println("""
 										---OPTIONS---
 				1 - Show All Vehicles				5 - Find Car By Year
@@ -33,8 +35,9 @@ public class UserInterface {
 	}
 
 	public int displayContractMenu() {
-		System.out.println("\n\t\t\t_____CONTRACT MENU_____");
-		Utils.designLine(70, false);
+		Utils.designLine(55, false);
+		System.out.println("\t\t\t\t\tCONTRACT MENU");
+		Utils.designLine(55, false);
 		System.out.println("""
 									---OPTIONS---
 				1 - View All Sales Contracts

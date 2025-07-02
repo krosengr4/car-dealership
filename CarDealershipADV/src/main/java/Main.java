@@ -7,6 +7,8 @@ public class Main {
         System.out.println("\n\t\t___________" + Utils.cowboy + "WELCOME_TO_CODEO_CARS" + Utils.cowboy + "___________");
         Utils.designLine(70, true);
 
+		Logic.processMainMenu();
+
 
 
         System.out.println("\n\nThank you for using Codeo Cars!\nSee you next time!" + Utils.smileyFace);
