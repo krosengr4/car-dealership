@@ -4,20 +4,61 @@ import Utilities.Utils;
 
 public class UserInterface {
 
-	public int displayMainScreen() {
+	public int displayMainMenu() {
 		System.out.println("\n\t\t\t_____MAIN MENU_____");
+		Utils.designLine(70, false);
+		System.out.println("""
+									---OPTIONS---
+				1 - Go to Vehicle Menu			3 - Sell or Lease Vehicle
+				2 - Go to Contract Menu			4 - Admin
+									0 - Exit
+				""");
+
+		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 4);
+	}
+
+	public int displayVehicleMenu() {
+		System.out.println("\n\t\t\t_____VEHICLE MENU_____");
 		Utils.designLine(70, false);
 		System.out.println("""
 										---OPTIONS---
 				1 - Show All Vehicles				5 - Find Car By Color
 				2 - Find Car By Price				6 - Find Car By Mileage
 				3 - Find Car By Make and Model		7 - Find Cars by Vehicle Type
-				4 - Find Car By Year				8 - Sell Or Lease a Vehicle
-										9 - Admin
-										00 - Exit
+				4 - Find Car By Year
+										0 - Go back
 				""");
 
 		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 9);
+	}
+
+	public int displayContractMenu() {
+		System.out.println("\n\t\t\t_____CONTRACT MENU_____");
+		Utils.designLine(70, false);
+		System.out.println("""
+									---OPTIONS---
+				1 - View All Sales Contracts
+				2 - View All Lease Contracts
+				0 - Go Back
+				""");
+
+		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 2);
+	}
+
+	public int displayAdminMenu() {
+		System.out.println("\n\t\t\t_____ADMIN MENU_____");
+		Utils.designLine(70, false);
+		System.out.println("""
+									---OPTIONS---
+				1 - Add A Vehicle				5 - Delete Sales Contract
+				2 - Update A Vehicle			6 - Update Lease Contract
+				3 - Delete A Vehicle			7 - Delete Lease Contract
+				4 - Update Sales Contract
+				
+									0 - Go Back
+				""");
+
+		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 7);
 	}
 
 }
