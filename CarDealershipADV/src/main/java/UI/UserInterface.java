@@ -22,14 +22,14 @@ public class UserInterface {
 		Utils.designLine(70, false);
 		System.out.println("""
 										---OPTIONS---
-				1 - Show All Vehicles				5 - Find Car By Color
-				2 - Find Car By Price				6 - Find Car By Mileage
-				3 - Find Car By Make and Model		7 - Find Cars by Vehicle Type
-				4 - Find Car By Year
+				1 - Show All Vehicles				5 - Find Car By Year
+				2 - Find Car By Price				6 - Find Car By Color
+				3 - Find Car By Make				7 - Find Car By Mileage
+				4 - Find Car By Model				8 - Find Cars by Vehicle Type
 										0 - Go back
 				""");
 
-		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 9);
+		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 8);
 	}
 
 	public int displayContractMenu() {
