@@ -1,6 +1,5 @@
 package Data;
 
-import Models.Printable;
 import Models.Vehicle;
 
 import java.util.List;
@@ -9,25 +8,25 @@ public interface VehicleDao {
 
 	List<Vehicle> getAll();
 
-	List<Vehicle> searchByPrice();
+	List<Vehicle> searchByPrice(int minPrice, int maxPrice);
 
-	List<Vehicle> searchByMake();
+	List<Vehicle> searchByMake(String make);
 
-	List<Vehicle> searchByModel();
+	List<Vehicle> searchByModel(String model);
 
-	List<Vehicle> searchByYear();
+	List<Vehicle> searchByYear(int year);
 
-	List<Vehicle> searchByColor();
+	List<Vehicle> searchByColor(String color);
 
-	List<Vehicle> searchByMileage();
+	List<Vehicle> searchByMileage(int min, int max);
 
-	List<Vehicle> searchByType();
+	List<Vehicle> searchByType(String type);
 
-	Vehicle searchById();
+	Vehicle searchById(int id);
 
-	Vehicle add();
+	Vehicle add(Vehicle vehicle);
 
-	void update();
+	void update(Vehicle vehicle, int id);
 
-	void delete();
+	void delete(int id);
 }
