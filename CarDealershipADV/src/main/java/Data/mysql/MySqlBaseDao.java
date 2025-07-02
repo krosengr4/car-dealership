@@ -1,7 +1,6 @@
 package Data.mysql;
 
 import configurations.DatabaseConfig;
-import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -12,7 +11,7 @@ public abstract class MySqlBaseDao {
 	private final DataSource dataSource;
 
 	public MySqlBaseDao(DataSource dataSource) {
-		this.dataSource = DatabaseConfig.dataSource();
+		this.dataSource = DatabaseConfig.getDataSource();
 	}
 
 	protected Connection getConnection() throws SQLException {

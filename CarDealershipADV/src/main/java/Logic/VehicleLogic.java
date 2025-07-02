@@ -1,11 +1,20 @@
 package Logic;
 
-import Data.VehicleDao;
+import Data.mysql.MySqlVehicleDao;
+import Models.Vehicle;
 import UI.UserInterface;
+import Utilities.Utils;
+import configurations.DatabaseConfig;
+import org.apache.commons.dbcp2.BasicDataSource;
+
+import java.util.List;
 
 public class VehicleLogic {
 
 	static UserInterface ui = new UserInterface();
+	static DatabaseConfig dbConfig = new DatabaseConfig();
+	static BasicDataSource dataSource = dbConfig.getDataSource();
+	static MySqlVehicleDao vehicleDao = new MySqlVehicleDao(dataSource);
 
 	public static void processVehicleMenu() {
 		boolean ifContinue = true;
@@ -28,7 +37,18 @@ public class VehicleLogic {
 	}
 
 	private static void processShowAll() {
-		System.out.println("Show all vehicles");
+		List<Vehicle> vehicleList = vehicleDao.getAll();
+
+		if(vehicleList.isEmpty()) {
+			System.out.println("There are no vehicles to display...");
+		} else {
+			for(Vehicle vehicle : vehicleList) {
+				vehicle.print();
+				System.out.println("---------------------------------------------");
+			}
+		}
+		System.out.println("Total Vehicles: " + vehicleList.size());
+		Utils.pauseApp();
 	}
 
 	private static void processShowByPrice() {
