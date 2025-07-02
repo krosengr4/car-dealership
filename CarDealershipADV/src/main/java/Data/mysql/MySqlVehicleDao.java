@@ -4,6 +4,8 @@ import Data.VehicleDao;
 import Models.Vehicle;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
@@ -67,6 +69,20 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 
 	public void delete(int id) {
 
+	}
+
+	private Vehicle mapRow(ResultSet results) throws SQLException {
+		String vin = results.getString("vin");
+		int year = results.getInt("year_made");
+		String make = results.getString("make");
+		String model = results.getString("model");
+		String color =  results.getString("color");
+		String type = results.getString("vehicle_type");
+		int odometer = results.getInt("odometer");
+		double price = results.getFloat("price");
+		boolean ifSold = results.getBoolean("sold");
+
+		return new Vehicle(vin, year, make, model, color, type, odometer, price);
 	}
 
 

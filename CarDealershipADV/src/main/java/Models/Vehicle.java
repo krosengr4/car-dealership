@@ -2,7 +2,7 @@ package Models;
 
 public class Vehicle implements Printable{
 
-    int vin;
+    String vin;
     int year;
     String make;
     String model;
@@ -13,7 +13,7 @@ public class Vehicle implements Printable{
 
     public Vehicle(){}
 
-    public Vehicle(int vin, int year, String make, String model, String vehicleType, String color, int odometer, double price) {
+    public Vehicle(String vin, int year, String make, String model, String vehicleType, String color, int odometer, double price) {
         this.vin = vin;
         this.year = year;
         this.make = make;
@@ -25,11 +25,11 @@ public class Vehicle implements Printable{
     }
 
     //region Getters and Setters
-    public int getVin() {
+    public String getVin() {
         return vin;
     }
 
-    public void setVin(int vin) {
+    public void setVin(String vin) {
         this.vin = vin;
     }
 
