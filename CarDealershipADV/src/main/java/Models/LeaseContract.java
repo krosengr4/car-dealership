@@ -1,3 +1,5 @@
+package Models;
+
 public class LeaseContract extends Contract {
 
     double expectedEndingValue;
