@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2ed524b9-e388-49ac-aa69-3808178ac38c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Data/LeaseContractDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/LeaseContractDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Data/SalesContractDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/SalesContractDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Data/VehicleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/VehicleDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Models/Dealership.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,9 +54,15 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/rosen/pluralsight/myWorkshops/Car-Dealership/CarDealershipADV/src/main/java/UI"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rosen\pluralsight\myWorkshops\Car-Dealership\CarDealershipADV\src\main\java\UI" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
