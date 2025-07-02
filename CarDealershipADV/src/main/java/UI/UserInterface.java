@@ -49,8 +49,9 @@ public class UserInterface {
 	}
 
 	public int displayAdminMenu() {
-		System.out.println("\n\t\t\t_____ADMIN MENU_____");
-		Utils.designLine(70, false);
+		Utils.designLine(60, false);
+		System.out.println("\t\t\t\t\tADMIN MENU");
+		Utils.designLine(60, false);
 		System.out.println("""
 									---OPTIONS---
 				1 - Add A Vehicle				5 - Delete Sales Contract

@@ -9,8 +9,6 @@ public class Main {
 
 		Logic.processMainMenu();
 
-
-
         System.out.println("\n\nThank you for using Codeo Cars!\nSee you next time!" + Utils.smileyFace);
 
     }
