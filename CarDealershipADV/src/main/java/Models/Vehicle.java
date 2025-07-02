@@ -1,6 +1,6 @@
 package Models;
 
-public class Vehicle {
+public class Vehicle implements Printable{
 
     int vin;
     int year;
@@ -89,5 +89,18 @@ public class Vehicle {
         this.price = price;
     }
     //endregion
+
+	@Override
+	public void print() {
+		System.out.println("-----VEHICLE-----");
+		System.out.println("VIN: " + this.vin);
+		System.out.println("Year: " + this.year);
+		System.out.println("Make: " + this.make);
+		System.out.println("Model: " + this.model);
+		System.out.println("Type: " + this.vehicleType);
+		System.out.println("Color: " + this.color);
+		System.out.println("Odometer: " + this.odometer);
+		System.out.println("Price: $" + this.price);
+	}
 
 }
