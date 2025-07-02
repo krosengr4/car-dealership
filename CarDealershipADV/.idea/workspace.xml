@@ -5,22 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ed524b9-e388-49ac-aa69-3808178ac38c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/LeaseContractDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/SalesContractDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/VehicleDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/mysql/MySqlLeaseDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/mysql/MySqlSalesDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/mysql/MySqlVehicleDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Logic/LeaseContractLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Logic/SalesContractLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Logic/VehicleLogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Models/Printable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ContractFileManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Dealership.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dealership.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DealershipFileManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/LeaseContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/LeaseContract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Logic/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Logic/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Models/Contract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Models/Contract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SalesContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SalesContract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/UserInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/contracts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/contracts.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../out/production/workshop-5/contracts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/workshop-5/contracts.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +27,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>

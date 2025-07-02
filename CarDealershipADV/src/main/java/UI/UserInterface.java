@@ -4,7 +4,7 @@ import Utilities.Utils;
 
 public class UserInterface {
 
-	public static int displayMainScreen() {
+	public int displayMainScreen() {
 		System.out.println("\n\t\t\t_____MAIN MENU_____");
 		Utils.designLine(70, false);
 		System.out.println("""
