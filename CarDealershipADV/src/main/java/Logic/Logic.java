@@ -1,6 +1,7 @@
 package Logic;
 
 import UI.UserInterface;
+import Utilities.Utils;
 import configurations.DatabaseConfig;
 import org.apache.commons.dbcp2.BasicDataSource;
 
@@ -30,7 +31,14 @@ public class Logic {
 	}
 
 	private static void processGoToAdmin() {
-		System.out.println("Password check!");
+		String userPassword = Utils.getUserInput("Enter the password: ");
+		boolean passwordCheck = Utils.passwordCheck(userPassword);
+
+		if(passwordCheck) {
+			AdminLogic.processAdminMenu();
+		} else {
+			System.out.println("The password is incorrect!!!");
+		}
 	}
 
 
