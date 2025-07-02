@@ -1,6 +1,6 @@
 package Models;
 
-public class LeaseContract extends Contract {
+public class LeaseContract extends Contract implements Printable{
 
     double expectedEndingValue;
     double leaseFee;
@@ -58,4 +58,14 @@ public class LeaseContract extends Contract {
         //totalPrice = (price - expectedEndingValue) + leaseFee + recordingFee
         return (this.vehicleSold.getPrice() - this.calculateExpectedEnding()) + this.calculateLeaseFee() + this.getRecordingFee();
     }
+
+	@Override
+	public void print() {
+		System.out.println("-----LEASE CONTRACT-----");
+		System.out.println("Date of Contract: " + this.dateOfContract);
+		System.out.println("Customer Name: " + this.customerName);
+		System.out.println("Vehicle Sold: " + this.vehicleSold.year + ", " + this.vehicleSold.make + " " + this.vehicleSold.model);
+		System.out.printf("Monthly Payment: $%.2f\n", this.calculateMonthlyPayment());
+		System.out.printf("Total Price: $%.2f\n", this.calculateTotalPrice());
+	}
 }

@@ -1,6 +1,6 @@
 package Models;
 
-public class SalesContract extends Contract {
+public class SalesContract extends Contract implements Printable{
 
     double salesTax;
     double recordingFee;
@@ -82,4 +82,18 @@ public class SalesContract extends Contract {
         return this.getVehicleSold().getPrice() + this.calculateSalesTax() + this.getRecordingFee() + this.calculateProcessingFee();
 
     }
+
+	@Override
+	public void print() {
+		System.out.println("-----SALES CONTRACT-----");
+		System.out.println("Date of Contract: " + this.dateOfContract);
+		System.out.println("Customer Name: " + this.customerName);
+		System.out.println("Vehicle Sold: " + this.vehicleSold.year + ", " + this.vehicleSold.make + " " + this.vehicleSold.model);
+		System.out.printf("Sales Tax: $%.2f\n", this.calculateSalesTax());
+		if(this.isFinance)
+			System.out.printf("Monthly Payment: $%.2f\n", this.calculateMonthlyPayment());
+		else
+			System.out.println("This Vehicle was not Financed.");
+		System.out.printf("Total Price: $%.2f\n", this.calculateTotalPrice());
+	}
 }
