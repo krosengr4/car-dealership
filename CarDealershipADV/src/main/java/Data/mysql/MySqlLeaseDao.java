@@ -111,6 +111,32 @@ public class MySqlLeaseDao extends MySqlBaseDao implements LeaseContractDao {
 		return null;
 	}
 
+	@Override
+	public void update(LeaseContract contract, int contractId) {
+		String query = "UPDATE lease_contract " +
+							   "SET vehicle_id = ?, contract_date = ?, customer_name = ?, customer_email = ?, monthly_payment = ?, total_price = ? " +
+							   "WHERE lease_contract_id = ?;";
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, contract.getVehicleSold().getVehicleId());
+			statement.setString(2, contract.getDateOfContract());
+			statement.setString(3, contract.getCustomerName());
+			statement.setString(4, contract.getCustomerEmail());
+			statement.setDouble(5, contract.calculateMonthlyPayment());
+			statement.setDouble(6, contract.calculateTotalPrice());
+			statement.setInt(7, contractId);
+
+			int rows = statement.executeUpdate();
+			if(rows > 0)
+				System.out.println("Success! The Lease Contract information has been updated!!!");
+			else
+				System.err.println("ERROR! Could not update the Lease Contract information!!!");
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private LeaseContract mapRow(ResultSet results) throws SQLException {
 		String date = results.getString("contract_date");
 		String customerName = results.getString("customer_name");

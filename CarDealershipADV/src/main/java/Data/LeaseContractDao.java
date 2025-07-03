@@ -15,7 +15,7 @@ public interface LeaseContractDao {
 
 	LeaseContract add(LeaseContract contract);
 
-	void update(int contractId);
+	void update(LeaseContract contract, int contractId);
 
 	void delete(int contractId);
 
