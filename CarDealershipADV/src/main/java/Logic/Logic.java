@@ -6,6 +6,7 @@ import Data.VehicleDao;
 import Data.mysql.MySqlLeaseDao;
 import Data.mysql.MySqlSalesDao;
 import Data.mysql.MySqlVehicleDao;
+import Models.LeaseContract;
 import Models.SalesContract;
 import Models.Vehicle;
 import UI.UserInterface;
@@ -71,15 +72,38 @@ public class Logic {
 				vehicle.setIsSold(true);
 				vehicleDao.update(vehicle, vehicleId);
 
+				Utils.designLine(50, true, "_");
 				contract.print();
 			}
 		} else {
 			System.err.println("ERROR! This vehicle was sold already!!!");
 		}
+
+		Utils.pauseApp();
 	}
 
 	private static void leaseVehicle() {
+		Date date = Date.valueOf(LocalDate.now());
+		String customerName = Utils.getUserInput("Please enter customers first and last name: ");
+		String customerEmail = Utils.getUserInput("Pleas enter customers email: ");
 
+		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID that you are leasing: ");
+		Vehicle vehicle = vehicleDao.searchById(vehicleId);
+
+		if(!vehicle.isSold()) {
+			LeaseContract contract = leaseDao.add(new LeaseContract(date, customerName, customerEmail, vehicle));
+			if(contract != null) {
+				vehicle.setIsSold(true);
+				vehicleDao.update(vehicle, vehicleId);
+
+				Utils.designLine(50, true, "_");
+				contract.print();
+			}
+		} else {
+			System.err.println("ERROR! This vehicle was sold already!!!");
+		}
+
+		Utils.pauseApp();
 	}
 
 	private static void processGoToAdmin() {

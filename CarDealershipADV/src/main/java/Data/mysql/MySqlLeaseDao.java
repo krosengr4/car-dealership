@@ -83,7 +83,7 @@ public class MySqlLeaseDao extends MySqlBaseDao implements LeaseContractDao {
 
 	@Override
 	public LeaseContract add(LeaseContract contract) {
-		String query = "INSERT INTO lease_contract (vehicle_id, contract_date, customer_name, customer_email, monthly_payment, total_price " +
+		String query = "INSERT INTO lease_contract (vehicle_id, contract_date, customer_name, customer_email, monthly_payment, total_price) " +
 							   "VALUES (?, ?, ?, ?, ?, ?);";
 		try(Connection connection = getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);

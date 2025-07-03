@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ed524b9-e388-49ac-aa69-3808178ac38c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/mysql/MySqlLeaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/mysql/MySqlLeaseDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/mysql/MySqlSalesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/mysql/MySqlSalesDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Logic/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Logic/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Models/Contract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Models/Contract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Models/LeaseContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Models/LeaseContract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Models/SalesContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Models/SalesContract.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
