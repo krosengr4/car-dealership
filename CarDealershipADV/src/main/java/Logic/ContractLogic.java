@@ -1,15 +1,23 @@
 package Logic;
 
+import Data.mysql.MySqlLeaseDao;
+import Data.mysql.MySqlSalesDao;
 import Models.Contract;
 import Models.SalesContract;
 import UI.UserInterface;
 import Utilities.Utils;
+import configurations.DatabaseConfig;
+import org.apache.commons.dbcp2.BasicDataSource;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class ContractLogic {
 
 	static UserInterface ui = new UserInterface();
+	static BasicDataSource dataSource = DatabaseConfig.setDataSource();
+	static MySqlSalesDao salesDao = new MySqlSalesDao(dataSource);
+//	static MySqlLeaseDao leaseDao = new MySqlLeaseDao(dataSource);
 
 	public static void processContractMenu() {
 		boolean ifContinue = true;
@@ -30,7 +38,10 @@ public class ContractLogic {
 	}
 
 	private static void processShowAllSales() {
-		System.out.println("All sales contracts");
+		List<Contract> contractList = salesDao.getAll();
+		printData(contractList);
+
+		Utils.pauseApp();
 	}
 
 	private static void processSearchSalesByContractId() {

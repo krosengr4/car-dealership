@@ -1,12 +1,13 @@
 package Data;
 
+import Models.Contract;
 import Models.SalesContract;
 
 import java.util.List;
 
 public interface SalesContractDao {
 
-	List<SalesContract> getAll();
+	List<Contract> getAll();
 
 	SalesContract getByContractId(int contractId);
 

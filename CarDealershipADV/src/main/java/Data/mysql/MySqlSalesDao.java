@@ -2,8 +2,11 @@ package Data.mysql;
 
 import Data.SalesContractDao;
 import Data.VehicleDao;
+import Models.Contract;
 import Models.SalesContract;
 import Models.Vehicle;
+import configurations.DatabaseConfig;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -12,15 +15,16 @@ import java.util.List;
 
 public class MySqlSalesDao extends MySqlBaseDao implements SalesContractDao {
 
-	VehicleDao vehicleDao;
+	static BasicDataSource dataSource = DatabaseConfig.setDataSource();
+	static VehicleDao vehicleDao = new MySqlVehicleDao(dataSource);
 
 	public MySqlSalesDao(DataSource dataSource) {
 		super(dataSource);
 	}
 
 	@Override
-	public List<SalesContract> getAll() {
-		List<SalesContract> contractList = new ArrayList<>();
+	public List<Contract> getAll() {
+		List<Contract> contractList = new ArrayList<>();
 		String query = "SELECT * FROM sales_contract;";
 
 		try(Connection connection = getConnection()) {
