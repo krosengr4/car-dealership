@@ -46,6 +46,25 @@ public class MySqlLeaseDao extends MySqlBaseDao implements LeaseContractDao {
 		return contractList;
 	}
 
+	public LeaseContract getByContractId(int contractId) {
+		String query = "SELECT * FROM lease_contract " +
+							   "WHERE lease_contract_id = ?;";
+
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, contractId);
+
+			ResultSet result = statement.executeQuery();
+			if(result.next()) {
+				return mapRow(result);
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
 	private LeaseContract mapRow(ResultSet results) throws SQLException {
 		String date = results.getString("contract_date");
 		String customerName = results.getString("customer_name");
