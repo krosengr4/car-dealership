@@ -13,8 +13,7 @@ import java.util.List;
 public class VehicleLogic {
 
 	static UserInterface ui = new UserInterface();
-	static BasicDataSource dataSource = DatabaseConfig.setDataSource();
-	static VehicleDao vehicleDao = new MySqlVehicleDao(dataSource);
+	static VehicleDao vehicleDao = new MySqlVehicleDao(DatabaseConfig.setDataSource());
 
 	public static void processVehicleMenu() {
 		boolean ifContinue = true;

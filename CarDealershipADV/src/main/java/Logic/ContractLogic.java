@@ -17,9 +17,8 @@ import java.util.List;
 public class ContractLogic {
 
 	static UserInterface ui = new UserInterface();
-	static BasicDataSource dataSource = DatabaseConfig.setDataSource();
-	static SalesContractDao salesDao = new MySqlSalesDao(dataSource);
-	static LeaseContractDao leaseDao = new MySqlLeaseDao(dataSource);
+	static SalesContractDao salesDao = new MySqlSalesDao(DatabaseConfig.setDataSource());
+	static LeaseContractDao leaseDao = new MySqlLeaseDao(DatabaseConfig.setDataSource());
 
 	public static void processContractMenu() {
 		boolean ifContinue = true;

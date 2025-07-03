@@ -1,5 +1,9 @@
 package Logic;
 
+import Data.LeaseContractDao;
+import Data.SalesContractDao;
+import Data.mysql.MySqlLeaseDao;
+import Data.mysql.MySqlSalesDao;
 import UI.UserInterface;
 import Utilities.Utils;
 import configurations.DatabaseConfig;
@@ -7,7 +11,8 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 public class Logic {
 
-	static BasicDataSource dataSource = DatabaseConfig.setDataSource();
+	static SalesContractDao salesDao = new MySqlSalesDao(DatabaseConfig.setDataSource());
+	static LeaseContractDao leaseDao = new MySqlLeaseDao(DatabaseConfig.setDataSource());
 	static UserInterface ui = new UserInterface();
 
 	public static void processMainMenu() {

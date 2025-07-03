@@ -1,10 +1,21 @@
 package Logic;
 
+import Data.LeaseContractDao;
+import Data.SalesContractDao;
+import Data.VehicleDao;
+import Data.mysql.MySqlLeaseDao;
+import Data.mysql.MySqlSalesDao;
+import Data.mysql.MySqlVehicleDao;
 import UI.UserInterface;
+import configurations.DatabaseConfig;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 public class AdminLogic {
 
 	static UserInterface ui = new UserInterface();
+	static VehicleDao vehicleDao = new MySqlVehicleDao(DatabaseConfig.setDataSource());
+	static SalesContractDao salesDao = new MySqlSalesDao(DatabaseConfig.setDataSource());
+	static LeaseContractDao leaseDao = new MySqlLeaseDao(DatabaseConfig.setDataSource());
 
 	public static void processAdminMenu(){
 		boolean ifContinue = true;
