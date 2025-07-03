@@ -37,21 +37,19 @@ public class VehicleLogic {
 
 	private static void processShowAll() {
 		List<Vehicle> vehicleList = vehicleDao.getAll();
+		printData(vehicleList);
 
-		if(vehicleList.isEmpty()) {
-			System.out.println("There are no vehicles to display...");
-		} else {
-			for(Vehicle vehicle : vehicleList) {
-				vehicle.print();
-				System.out.println("---------------------------------------------");
-			}
-		}
-		System.out.println("Total Vehicles: " + vehicleList.size());
 		Utils.pauseApp();
 	}
 
 	private static void processShowByPrice() {
-		System.out.println("Show by price");
+		double minPrice = Utils.getUserInputDouble("Enter the minimum price: ");
+		double maxPrice = Utils.getUserInputDouble("Enter the maximum price: ");
+
+		List<Vehicle> vehicleList = vehicleDao.searchByPrice(minPrice, maxPrice);
+		printData(vehicleList);
+
+		Utils.pauseApp();
 	}
 
 	private static void processShowByMake() {
@@ -77,4 +75,18 @@ public class VehicleLogic {
 	private static void processShowByType() {
 		System.out.println("Process Show By Type");
 	}
+
+	private static void printData(List<Vehicle> vehicleList) {
+		Utils.designLine(50, true, "_");
+		if(vehicleList.isEmpty()) {
+			System.out.println("There are no vehicles to display...");
+		} else {
+			for(Vehicle vehicle : vehicleList) {
+				vehicle.print();
+				Utils.designLine(35, false, "_");
+			}
+			System.out.println("\nTotal Vehicles: " + vehicleList.size());
+		}
+	}
+
 }

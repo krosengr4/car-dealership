@@ -38,7 +38,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	}
 
 	@Override
-	public List<Vehicle> searchByPrice(int minPrice, int maxPrice) {
+	public List<Vehicle> searchByPrice(double minPrice, double maxPrice) {
 		List<Vehicle> vehicleList = new ArrayList<>();
 		String query = "SELECT * FROM vehicles " +
 							   "WHERE price BETWEEN ? AND ?;";

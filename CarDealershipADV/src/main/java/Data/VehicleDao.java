@@ -8,7 +8,7 @@ public interface VehicleDao {
 
 	List<Vehicle> getAll();
 
-	List<Vehicle> searchByPrice(int minPrice, int maxPrice);
+	List<Vehicle> searchByPrice(double minPrice, double maxPrice);
 
 	List<Vehicle> searchByMake(String make);
 
