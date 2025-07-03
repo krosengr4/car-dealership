@@ -1,6 +1,11 @@
 package Logic;
 
+import Models.Contract;
+import Models.SalesContract;
 import UI.UserInterface;
+import Utilities.Utils;
+
+import java.util.List;
 
 public class ContractLogic {
 
@@ -41,5 +46,20 @@ public class ContractLogic {
 	private static void processSearchLeaseByContractId() {}
 
 	private static void processSearchLeaseByVehicleId() {}
+
+	private static void printData(List<Contract> contractList) {
+		Utils.designLine(50, true, "_");
+
+		if(contractList.isEmpty()) {
+			System.out.println("There are no contracts to display...");
+		} else {
+			for(Contract contract : contractList) {
+				contract.print();
+				Utils.designLine(35, false, "_");
+			}
+
+			System.out.println("\nTotal Contracts: " + contractList.size());
+		}
+	}
 
 }
