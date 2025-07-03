@@ -20,7 +20,7 @@ public class AdminLogic {
 	static SalesContractDao salesDao = new MySqlSalesDao(DatabaseConfig.setDataSource());
 	static LeaseContractDao leaseDao = new MySqlLeaseDao(DatabaseConfig.setDataSource());
 
-	public static void processAdminMenu(){
+	public static void processAdminMenu() {
 		boolean ifContinue = true;
 
 		while(ifContinue) {
@@ -61,7 +61,7 @@ public class AdminLogic {
 
 	private static void processUpdateVehicle() {
 		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID of the vehicle to update: ");
-		Vehicle updateVehicle  = vehicleDao.getById(vehicleId);
+		Vehicle updateVehicle = vehicleDao.getById(vehicleId);
 		int userChoice = ui.displayUpdateVehicle();
 
 		switch(userChoice) {
@@ -73,7 +73,8 @@ public class AdminLogic {
 			case 6 -> updateVehicle.setVehicleType(Utils.getUserInput("Enter the new type: "));
 			case 7 -> updateVehicle.setOdometer(Utils.getUserInputInt("Enter the new odometer: "));
 			case 8 -> updateVehicle.setPrice(Utils.getUserInputDouble("Enter the new price: "));
-			case 9 -> updateVehicle.setIsSold(Utils.getUserInputBoolean("Enter true or false for is the vehicle sold: "));
+			case 9 ->
+					updateVehicle.setIsSold(Utils.getUserInputBoolean("Enter true or false for is the vehicle sold: "));
 			case 0 -> {
 				return;
 			}
@@ -116,7 +117,7 @@ public class AdminLogic {
 				case 1 -> updateContract.setCustomerName(Utils.getUserInput("Enter the new customer name: "));
 				case 2 -> updateContract.setCustomerEmail(Utils.getUserInput("Enter the new customer email: "));
 				case 3 -> {
-					Vehicle newVehicle = processUpdatingVehicleOnContract(updateContract.getVehicleSold());
+					Vehicle newVehicle = updateVehicleOnContract(updateContract.getVehicleSold());
 
 					if(newVehicle == null)
 						System.err.println("ERROR! This Vehicle has already been sold!!!");
@@ -151,13 +152,14 @@ public class AdminLogic {
 				Vehicle vehicle = contractToDelete.getVehicleSold();
 				vehicle.setIsSold(false);
 				vehicleDao.update(vehicle, vehicle.getVehicleId());
-			}
-			else
+			} else {
 				System.out.println("\nThen the contract shall remain! It was not deleted!");
+			}
 
 		} else {
 			System.out.println("No contract was found with that ID...");
 		}
+
 		Utils.pauseApp();
 	}
 
@@ -174,7 +176,7 @@ public class AdminLogic {
 				case 1 -> updateContract.setCustomerName(Utils.getUserInput("Enter the new customer name: "));
 				case 2 -> updateContract.setCustomerEmail(Utils.getUserInput("Enter the new customer email: "));
 				case 3 -> {
-					Vehicle newVehicle = processUpdatingVehicleOnContract(updateContract.getVehicleSold());
+					Vehicle newVehicle = updateVehicleOnContract(updateContract.getVehicleSold());
 
 					if(newVehicle == null)
 						System.err.println("ERROR! This vehicle has already been sold!!!");
@@ -193,10 +195,32 @@ public class AdminLogic {
 	}
 
 	private static void processDeleteLeaseContract() {
-		System.out.println("Delete lease contract");
+		int contractId = Utils.getUserInputInt("Enter the ID of the lease contract to delete: ");
+		LeaseContract contractToDelete = leaseDao.getByContractId(contractId);
+
+		if(contractToDelete != null) {
+			Utils.designLine(50, true, "-");
+			contractToDelete.print();
+
+			int userConfirmation = Utils.getUserInputIntMinMax("\nIs this the contract you'd like to delete?\n1 - Yes, delete it\n2 - No! Hold your horses!\nEnter here: ", 1, 2);
+			if(userConfirmation == 1) {
+				leaseDao.delete(contractId);
+
+				Vehicle vehicle = contractToDelete.getVehicleSold();
+				vehicle.setIsSold(false);
+				vehicleDao.update(vehicle, vehicle.getVehicleId());
+			} else {
+				System.out.println("\nContract NOT deleted... No need to worry." + Utils.redHeart);
+			}
+
+		} else {
+			System.out.println("There were no lease contracts found with that ID...");
+		}
+
+		Utils.pauseApp();
 	}
 
-	private static Vehicle processUpdatingVehicleOnContract(Vehicle oldVehicle) {
+	private static Vehicle updateVehicleOnContract(Vehicle oldVehicle) {
 		//Get the vehicle to add onto the contract
 		int newVehicleId = Utils.getUserInputInt("Enter the ID for the new vehicle: ");
 		Vehicle newVehicle = vehicleDao.getById(newVehicleId);
