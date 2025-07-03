@@ -118,13 +118,12 @@ public class AdminLogic {
 				case 2 -> updateContract.setCustomerEmail(Utils.getUserInput("Enter the new customer email: "));
 				case 3 -> {
 					Vehicle newVehicle = updateVehicleOnContract(updateContract.getVehicleSold());
-
 					if(newVehicle == null)
-						System.err.println("ERROR! This Vehicle has already been sold!!!");
+						return;
 					else
 						updateContract.setVehicleSold(newVehicle);
-
 				}
+
 				case 4 ->
 						updateContract.setFinance(Utils.getUserInputBoolean("Enter true or false for if the vehicle was financed: "));
 				case 0 -> {
@@ -177,12 +176,10 @@ public class AdminLogic {
 				case 2 -> updateContract.setCustomerEmail(Utils.getUserInput("Enter the new customer email: "));
 				case 3 -> {
 					Vehicle newVehicle = updateVehicleOnContract(updateContract.getVehicleSold());
-
 					if(newVehicle == null)
-						System.err.println("ERROR! This vehicle has already been sold!!!");
+						return;
 					else
 						updateContract.setVehicleSold(newVehicle);
-
 				}
 				case 0 -> {
 					return;
@@ -225,25 +222,28 @@ public class AdminLogic {
 		int newVehicleId = Utils.getUserInputInt("Enter the ID for the new vehicle: ");
 		Vehicle newVehicle = vehicleDao.getById(newVehicleId);
 
-		//Make sure that the vehicles exists in the db
+		//Make sure that the vehicles exists in the db, and it hasn't already been sold.
 		if(newVehicle == null) {
 			System.out.println("\nThere were no vehicles found with that ID...");
+			Utils.pauseApp();
+
+		} else if(newVehicle.isSold()) {
+			System.err.println("ERROR! This vehicle has already been sold!!!");
+			Utils.pauseApp();
+
 		} else {
-			//Make sure that the new vehicle user is trying to put on the contract isn't already sold
-			if(!newVehicle.isSold()) {
-				//Set sold to true and update vehicle in the db
-				newVehicle.setIsSold(true);
-				vehicleDao.update(newVehicle, newVehicle.getVehicleId());
+			//Set sold to true and update vehicle in the db
+			newVehicle.setIsSold(true);
+			vehicleDao.update(newVehicle, newVehicle.getVehicleId());
 
-				//Set isSold to false for the vehicle that was on the contract. Update vehicle in the db
-				oldVehicle.setIsSold(false);
-				vehicleDao.update(oldVehicle, oldVehicle.getVehicleId());
+			//Set isSold to false for the vehicle that was on the contract. Update vehicle in the db
+			oldVehicle.setIsSold(false);
+			vehicleDao.update(oldVehicle, oldVehicle.getVehicleId());
 
-				//return the new vehicle
-				return newVehicle;
-			}
+			//return the new vehicle
+			return newVehicle;
 		}
 		return null;
 	}
-
 }
+

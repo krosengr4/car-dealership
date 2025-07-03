@@ -114,7 +114,7 @@ public class UserInterface {
 						---OPTIONS---
 				1 - Update Customer Name
 				2 - Update Customer Email
-				3 - Update Vehicle Sold
+				3 - Update Vehicle On Contract
 				4 - Update if the sale was financed
 				0 - Go back
 				""");
@@ -128,7 +128,7 @@ public class UserInterface {
 						---OPTIONS---
 				1 - Update Customer Name
 				2 - Update Customer Email
-				3 - Update Vehicle Sold
+				3 - Update Vehicle On Contract
 				0 - Go back
 				""");
 
