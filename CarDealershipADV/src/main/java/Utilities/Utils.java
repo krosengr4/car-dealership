@@ -60,6 +60,17 @@ public class Utils {
 		}
 	}
 
+	public static boolean getUserInputBoolean(String message) {
+		while(true) {
+			System.out.println(message);
+			try {
+				return Boolean.parseBoolean(myScanner.nextLine());
+			} catch (Exception e) {
+				System.err.println("ERROR! Invalid input! Please enter either true or false!!");
+			}
+		}
+	}
+
 	//Pauses the app until user hits Enter
 	public static void pauseApp() {
 		System.out.println("\nPress Enter to Continue...");
