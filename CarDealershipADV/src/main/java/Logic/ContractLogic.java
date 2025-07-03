@@ -1,7 +1,11 @@
 package Logic;
 
+import Data.LeaseContractDao;
+import Data.SalesContractDao;
+import Data.mysql.MySqlLeaseDao;
 import Data.mysql.MySqlSalesDao;
 import Models.Contract;
+import Models.LeaseContract;
 import Models.SalesContract;
 import UI.UserInterface;
 import Utilities.Utils;
@@ -14,8 +18,8 @@ public class ContractLogic {
 
 	static UserInterface ui = new UserInterface();
 	static BasicDataSource dataSource = DatabaseConfig.setDataSource();
-	static MySqlSalesDao salesDao = new MySqlSalesDao(dataSource);
-//	static MySqlLeaseDao leaseDao = new MySqlLeaseDao(dataSource);
+	static SalesContractDao salesDao = new MySqlSalesDao(dataSource);
+	static LeaseContractDao leaseDao = new MySqlLeaseDao(dataSource);
 
 	public static void processContractMenu() {
 		boolean ifContinue = true;
@@ -69,10 +73,24 @@ public class ContractLogic {
 	}
 
 	private static void processShowAllLease() {
-		System.out.println("All lease contracts");
+		List<Contract> contractList = leaseDao.getAll();
+		printData(contractList);
+
+		Utils.pauseApp();
 	}
 
-	private static void processSearchLeaseByContractId() {}
+	private static void processSearchLeaseByContractId() {
+		int contractId = Utils.getUserInputInt("Enter the Lease Contract ID: ");
+		LeaseContract contract = leaseDao.getByContractId(contractId);
+
+		if(contract == null) {
+			System.out.println("Could not find lease contract with that ID...");
+		} else {
+			Utils.designLine(50, true, "_");
+			contract.print();
+		}
+		Utils.pauseApp();
+	}
 
 	private static void processSearchLeaseByVehicleId() {}
 
