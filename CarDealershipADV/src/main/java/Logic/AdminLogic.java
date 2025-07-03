@@ -58,7 +58,23 @@ public class AdminLogic {
 	}
 
 	private static void processUpdateVehicle() {
-		System.out.println("Process Update vehicle");
+		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID of the vehicle to update: ");
+		Vehicle updateVehicle  = vehicleDao.searchById(vehicleId);
+		int userChoice = ui.displayUpdateVehicle();
+
+		switch(userChoice) {
+			case 1 -> updateVehicle.setVin(Utils.getUserInput("Enter the new VIN: "));
+			case 2 -> updateVehicle.setYear(Utils.getUserInputInt("Enter the new year: "));
+			case 3 -> updateVehicle.setMake(Utils.getUserInput("Enter the new make: "));
+			case 4 -> updateVehicle.setModel(Utils.getUserInput("Enter the new model: "));
+			case 5 -> updateVehicle.setColor(Utils.getUserInput("Enter the new color: "));
+			case 6 -> updateVehicle.setVehicleType(Utils.getUserInput("Enter the new type: "));
+			case 7 -> updateVehicle.setOdometer(Utils.getUserInputInt("Enter the new odometer: "));
+			case 8 -> updateVehicle.setPrice(Utils.getUserInputDouble("Enter the new price: "));
+			case 9 -> updateVehicle.setIsSold(Utils.getUserInputBoolean("Enter true or false for is the vehicle sold: "));
+		}
+
+		vehicleDao.update(updateVehicle, vehicleId);
 	}
 
 	private static void processDeleteVehicle() {
