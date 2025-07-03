@@ -4,12 +4,17 @@ import Utilities.Utils;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("\n\t\t___________" + Utils.cowboy + "WELCOME_TO_CODEO_CARS" + Utils.cowboy + "___________");
-        Utils.designLine(70, true);
+		Utils.designLine(85, true, "_");
+		Utils.designLine(35, false, Utils.cowboy);
+        System.out.println(Utils.cowboy + "\t\t\t\t\t\t" + Utils.cowboy + "WELCOME TO CODEO CARS" + Utils.cowboy + "\t\t\t\t\t\t\t   " + Utils.cowboy);
+		Utils.designLine(35, true, Utils.cowboy);
 
 		Logic.processMainMenu();
 
-        System.out.println("\n\nThank you for using Codeo Cars!\nSee you next time!" + Utils.smileyFace);
+		System.out.println("\n\nThank you for using Codeo Cars!" + Utils.smileyFace + "\n");
+		Utils.designLine(35, false, Utils.cowboy);
+		System.out.println(Utils.cowboy + "\t\t\t\t\t\t" + Utils.cowboy + "Y'ALL COME BACK NOW, YA HERE" + Utils.cowboy + "\t\t\t\t\t   " + Utils.cowboy);
+		Utils.designLine(35, false, Utils.cowboy);
 
     }
 

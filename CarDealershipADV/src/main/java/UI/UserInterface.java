@@ -5,9 +5,9 @@ import Utilities.Utils;
 public class UserInterface {
 
 	public int displayMainMenu() {
-		Utils.designLine(55, false);
+		Utils.designLine(55, false, "=");
 		System.out.println("\t\t\t\t\tMAIN MENU");
-		Utils.designLine(55, false);
+		Utils.designLine(55, false, "=");
 		System.out.println("""
 									---OPTIONS---
 				1 - Go to Vehicle Menu			3 - Sell or Lease Vehicle
@@ -19,9 +19,9 @@ public class UserInterface {
 	}
 
 	public int displayVehicleMenu() {
-		Utils.designLine(60, false);
+		Utils.designLine(60, false, "=");
 		System.out.println("\t\t\t\t\t  VEHICLE MENU");
-		Utils.designLine(60, false);
+		Utils.designLine(60, false, "=");
 		System.out.println("""
 										---OPTIONS---
 				1 - Show All Vehicles				5 - Find Car By Year
@@ -35,9 +35,9 @@ public class UserInterface {
 	}
 
 	public int displayContractMenu() {
-		Utils.designLine(55, false);
+		Utils.designLine(55, false, "=");
 		System.out.println("\t\t\t\t\tCONTRACT MENU");
-		Utils.designLine(55, false);
+		Utils.designLine(55, false, "=");
 		System.out.println("""
 									---OPTIONS---
 				1 - View All Sales Contracts
@@ -49,9 +49,9 @@ public class UserInterface {
 	}
 
 	public int displayAdminMenu() {
-		Utils.designLine(60, false);
+		Utils.designLine(60, false, "=");
 		System.out.println("\t\t\t\t\tADMIN MENU");
-		Utils.designLine(60, false);
+		Utils.designLine(60, false, "=");
 		System.out.println("""
 									---OPTIONS---
 				1 - Add A Vehicle				5 - Delete Sales Contract

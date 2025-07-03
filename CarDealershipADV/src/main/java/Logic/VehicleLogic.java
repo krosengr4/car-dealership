@@ -12,8 +12,7 @@ import java.util.List;
 public class VehicleLogic {
 
 	static UserInterface ui = new UserInterface();
-	static DatabaseConfig dbConfig = new DatabaseConfig();
-	static BasicDataSource dataSource = dbConfig.getDataSource();
+	static BasicDataSource dataSource = DatabaseConfig.setDataSource();
 	static MySqlVehicleDao vehicleDao = new MySqlVehicleDao(dataSource);
 
 	public static void processVehicleMenu() {

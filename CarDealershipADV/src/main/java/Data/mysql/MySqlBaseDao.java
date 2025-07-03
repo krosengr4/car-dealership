@@ -11,7 +11,7 @@ public abstract class MySqlBaseDao {
 	private final DataSource dataSource;
 
 	public MySqlBaseDao(DataSource dataSource) {
-		this.dataSource = DatabaseConfig.getDataSource();
+		this.dataSource = DatabaseConfig.setDataSource();
 	}
 
 	protected Connection getConnection() throws SQLException {

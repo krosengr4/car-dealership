@@ -7,7 +7,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 public class Logic {
 
-	static BasicDataSource dataSource = DatabaseConfig.getDataSource();
+	static BasicDataSource dataSource = DatabaseConfig.setDataSource();
 	static UserInterface ui = new UserInterface();
 
 	public static void processMainMenu() {
