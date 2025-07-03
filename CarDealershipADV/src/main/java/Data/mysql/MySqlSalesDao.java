@@ -157,7 +157,7 @@ public class MySqlSalesDao extends MySqlBaseDao implements SalesContractDao {
 		Date date = results.getDate("contract_date");
 		String customerName = results.getString("customer_name");
 		String customerEmail = results.getString("customer_email");
-		Vehicle vehicle = vehicleDao.searchById(results.getInt("vehicle_id"));
+		Vehicle vehicle = vehicleDao.getById(results.getInt("vehicle_id"));
 		boolean isFinanced = results.getBoolean("is_financed");
 
 		return new SalesContract(date, customerName, customerEmail, vehicle, isFinanced);

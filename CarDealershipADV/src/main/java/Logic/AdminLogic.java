@@ -6,7 +6,6 @@ import Data.VehicleDao;
 import Data.mysql.MySqlLeaseDao;
 import Data.mysql.MySqlSalesDao;
 import Data.mysql.MySqlVehicleDao;
-import Models.Contract;
 import Models.SalesContract;
 import Models.Vehicle;
 import UI.UserInterface;
@@ -61,7 +60,7 @@ public class AdminLogic {
 
 	private static void processUpdateVehicle() {
 		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID of the vehicle to update: ");
-		Vehicle updateVehicle  = vehicleDao.searchById(vehicleId);
+		Vehicle updateVehicle  = vehicleDao.getById(vehicleId);
 		int userChoice = ui.displayUpdateVehicle();
 
 		switch(userChoice) {
@@ -84,7 +83,22 @@ public class AdminLogic {
 
 	private static void processDeleteVehicle() {
 		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID of the vehicle you wish to delete: ");
-		vehicleDao.delete(vehicleId);
+		Vehicle vehicleToDelete = vehicleDao.getById(vehicleId);
+
+		if(vehicleToDelete != null) {
+			Utils.designLine(50, true, "-");
+			vehicleToDelete.print();
+
+			int userConfirmation = Utils.getUserInputIntMinMax("\nIs this the vehicle you'd like to delete?\n1 - Yes, be gone with it!\n2 - No! Please no!\nEnter here: ", 1, 2);
+			if(userConfirmation == 1)
+				vehicleDao.delete(vehicleId);
+			else
+				System.out.println("\nVehicle NOT deleted. It is safe... for now");
+
+		} else {
+			System.out.println("\nCould not find vehicle with that ID...");
+		}
+		Utils.pauseApp();
 	}
 
 	private static void processUpdateSalesContract() {
@@ -101,7 +115,7 @@ public class AdminLogic {
 				if(newVehicle == null)
 					System.err.println("ERROR! This Vehicle has already been sold!!!");
 				else
-					updateContract.setVehicleSold(vehicleDao.searchById(newVehicle.getVehicleId()));
+					updateContract.setVehicleSold(vehicleDao.getById(newVehicle.getVehicleId()));
 			}
 
 			case 4 -> updateContract.setFinance(Utils.getUserInputBoolean("Enter true or false for if the vehicle was financed: "));
@@ -113,10 +127,43 @@ public class AdminLogic {
 		salesDao.update(updateContract, contractId);
 	}
 
+	private static void processDeleteSalesContract() {
+		int contractId = Utils.getUserInputInt("Enter the ID of the sales contract to delete: ");
+		SalesContract contractToDelete = salesDao.getByContractId(contractId);
+
+		if(contractToDelete != null) {
+			Utils.designLine(50, true, "-");
+			contractToDelete.print();
+
+			int userConfirmation = Utils.getUserInputIntMinMax("\nIs this the contract you'd like to delete?\n1 - Yes, delete it\n2 - No! Hold your horses!\nEnter here: ", 1, 2);
+			if(userConfirmation == 1) {
+				salesDao.delete(contractId);
+
+				Vehicle vehicle = contractToDelete.getVehicleSold();
+				vehicle.setIsSold(false);
+				vehicleDao.update(vehicle, vehicle.getVehicleId());
+			}
+			else
+				System.out.println("\nThen the contract shall remain! It was not deleted!");
+
+		} else {
+			System.out.println("No contract was found with that ID...");
+		}
+		Utils.pauseApp();
+	}
+
+	private static void processUpdateLeaseContract() {
+
+	}
+
+	private static void processDeleteLeaseContract() {
+		System.out.println("Delete lease contract");
+	}
+
 	private static Vehicle processUpdatingVehicleOnContract(Vehicle oldVehicle) {
 		//Get the vehicle to add onto the contract
 		int newVehicleId = Utils.getUserInputInt("Enter the ID for the new vehicle: ");
-		Vehicle newVehicle = vehicleDao.searchById(newVehicleId);
+		Vehicle newVehicle = vehicleDao.getById(newVehicleId);
 
 		//Make sure that the new vehicle user is trying to put on the contract isn't already sold
 		if(!newVehicle.isSold()) {
@@ -132,38 +179,6 @@ public class AdminLogic {
 			return newVehicle;
 		}
 		return null;
-	}
-
-	private static void processDeleteSalesContract() {
-		int contractId = Utils.getUserInputInt("Enter the ID of the sales contract to delete: ");
-		SalesContract contract = salesDao.getByContractId(contractId);
-
-		if(contract != null) {
-			Utils.designLine(50, true, "-");
-			contract.print();
-
-			int userConfirmation = Utils.getUserInputIntMinMax("\nIs this the contract you'd like to delete?\n1 - Yes, delete it\n2 - No! Hold your horses!\nEnter here: ", 1, 2);
-			if(userConfirmation == 1) {
-				salesDao.delete(contractId);
-
-				Vehicle vehicle = contract.getVehicleSold();
-				vehicle.setIsSold(false);
-				vehicleDao.update(vehicle, vehicle.getVehicleId());
-			}
-			else
-				System.out.println("\nThen the contract shall remain! It was not deleted!");
-		} else {
-			System.out.println("No contract was found with that ID...");
-		}
-		Utils.pauseApp();
-	}
-
-	private static void processUpdateLeaseContract() {
-		System.out.println("Update Lease Contract");
-	}
-
-	private static void processDeleteLeaseContract() {
-		System.out.println("Delete lease contract");
 	}
 
 }

@@ -201,7 +201,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	}
 
 	@Override
-	public Vehicle searchById(int id) {
+	public Vehicle getById(int id) {
 		String query = "SELECT * FROM vehicles " +
 							   "WHERE id = ?;";
 
@@ -244,7 +244,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 
 				if(keys.next()) {
 					int vehicleId = keys.getInt(1);
-					return searchById(vehicleId);
+					return getById(vehicleId);
 				}
 			}
 		} catch(SQLException e) {

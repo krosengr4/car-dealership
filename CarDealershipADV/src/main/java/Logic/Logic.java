@@ -12,7 +12,6 @@ import Models.Vehicle;
 import UI.UserInterface;
 import Utilities.Utils;
 import configurations.DatabaseConfig;
-import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -58,7 +57,7 @@ public class Logic {
 		int vehicleId = Integer.parseInt(contractAttributes.get(2));
 		boolean isFinanced = Integer.parseInt(contractAttributes.get(3)) == 1;
 
-		Vehicle vehicle = vehicleDao.searchById(vehicleId);
+		Vehicle vehicle = vehicleDao.getById(vehicleId);
 
 		if(!vehicle.isSold()) {
 			SalesContract contract = salesDao.add(new SalesContract(Date.valueOf(LocalDate.now()), customerName, customerEmail, vehicle, isFinanced));
@@ -80,7 +79,7 @@ public class Logic {
 		String customerName = contractAttributes.get(0);
 		String customerEmail = contractAttributes.get(1);
 		int vehicleId = Integer.parseInt(contractAttributes.get(2));
-		Vehicle vehicle = vehicleDao.searchById(vehicleId);
+		Vehicle vehicle = vehicleDao.getById(vehicleId);
 
 		if(!vehicle.isSold()) {
 			LeaseContract contract = leaseDao.add(new LeaseContract(Date.valueOf(LocalDate.now()), customerName, customerEmail, vehicle));

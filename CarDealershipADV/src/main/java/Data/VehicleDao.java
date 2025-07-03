@@ -22,7 +22,7 @@ public interface VehicleDao {
 
 	List<Vehicle> searchByType(String type);
 
-	Vehicle searchById(int id);
+	Vehicle getById(int id);
 
 	Vehicle add(Vehicle vehicle);
 
