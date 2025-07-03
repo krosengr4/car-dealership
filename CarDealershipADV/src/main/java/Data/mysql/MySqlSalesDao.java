@@ -106,6 +106,31 @@ public class MySqlSalesDao extends MySqlBaseDao implements SalesContractDao {
 		return null;
 	}
 
+	public void update(SalesContract contract, int contractId) {
+		String query = "UPDATE sales_contract " +
+							   "SET vehicle_id = ?, contract_date = ?, customer_name = ?, customer_email = ?, is_financed = ?, total_price = ? " +
+							   "WHERE sales_contract_id = ?;";
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, contract.getVehicleSold().getVehicleId());
+			statement.setString(2, contract.getDateOfContract());
+			statement.setString(3, contract.getCustomerName());
+			statement.setString(4, contract.getCustomerEmail());
+			statement.setBoolean(5, contract.isFinance());
+			statement.setDouble(6, contract.calculateTotalPrice());
+			statement.setInt(7, contractId);
+
+			int rows = statement.executeUpdate();
+			if(rows > 0)
+				System.out.println("Success! The Sales Contract information has been updated!!!");
+			else
+				System.err.println("ERROR! Could not update Sales Contract information!!!");
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private SalesContract mapRow(ResultSet results) throws SQLException {
 		String date = results.getString("contract_date");
 		String customerName = results.getString("customer_name");

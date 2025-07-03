@@ -14,7 +14,7 @@ public interface SalesContractDao {
 
 	SalesContract add(SalesContract contract);
 
-	void update(SalesContract contract);
+	void update(SalesContract contract, int contractId);
 
 	void delete(int contractId);
 
