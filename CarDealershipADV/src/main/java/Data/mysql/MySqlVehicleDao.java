@@ -110,7 +110,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	public List<Vehicle> searchByYear(int minYear, int maxYear) {
 		List<Vehicle> vehicleList = new ArrayList<>();
 		String query = "SELECT * FROM vehicles " +
-							   "WHERE year BETWEEN ? AND ?;";
+							   "WHERE year_made BETWEEN ? AND ?;";
 
 		try(Connection connection = getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query);
