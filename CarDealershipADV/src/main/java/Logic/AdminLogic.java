@@ -6,6 +6,7 @@ import Data.VehicleDao;
 import Data.mysql.MySqlLeaseDao;
 import Data.mysql.MySqlSalesDao;
 import Data.mysql.MySqlVehicleDao;
+import Models.LeaseContract;
 import Models.SalesContract;
 import Models.Vehicle;
 import UI.UserInterface;
@@ -115,9 +116,9 @@ public class AdminLogic {
 				if(newVehicle == null)
 					System.err.println("ERROR! This Vehicle has already been sold!!!");
 				else
-					updateContract.setVehicleSold(vehicleDao.getById(newVehicle.getVehicleId()));
-			}
+					updateContract.setVehicleSold(newVehicle);
 
+			}
 			case 4 -> updateContract.setFinance(Utils.getUserInputBoolean("Enter true or false for if the vehicle was financed: "));
 			case 0 -> {
 				return;
@@ -153,7 +154,34 @@ public class AdminLogic {
 	}
 
 	private static void processUpdateLeaseContract() {
+		int contractId = Utils.getUserInputInt("Enter the ID of the lease contract to update: ");
+		LeaseContract updateContract = leaseDao.getByContractId(contractId);
+		if(updateContract == null) {
+			System.out.println("\nNo lease contract found with that ID...");
 
+		} else {
+			int userChoice = ui.displayUpdateLeaseContract();
+
+			switch(userChoice) {
+				case 1 -> updateContract.setCustomerName(Utils.getUserInput("Enter the new customer name: "));
+				case 2 -> updateContract.setCustomerEmail(Utils.getUserInput("Enter the new customer email: "));
+				case 3 -> {
+					Vehicle newVehicle = processUpdatingVehicleOnContract(updateContract.getVehicleSold());
+
+					if(newVehicle == null)
+						System.err.println("ERROR! This vehicle has already been sold!!!");
+					else
+						updateContract.setVehicleSold(newVehicle);
+
+				}
+				case 0 -> {
+					return;
+				}
+			}
+
+			leaseDao.update(updateContract, contractId);
+		}
+		Utils.pauseApp();
 	}
 
 	private static void processDeleteLeaseContract() {
