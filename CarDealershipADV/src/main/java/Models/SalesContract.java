@@ -1,5 +1,8 @@
 package Models;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class SalesContract extends Contract implements Printable{
 
     double salesTax;
@@ -9,7 +12,7 @@ public class SalesContract extends Contract implements Printable{
 
     public SalesContract() {}
 
-    public SalesContract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicleSold, boolean isFinance) {
+    public SalesContract(Date dateOfContract, String customerName, String customerEmail, Vehicle vehicleSold, boolean isFinance) {
 
         super(dateOfContract, customerName, customerEmail, vehicleSold);
         this.isFinance = isFinance;

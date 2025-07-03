@@ -87,7 +87,7 @@ public class MySqlSalesDao extends MySqlBaseDao implements SalesContractDao {
 		try(Connection connection = getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			statement.setInt(1, contract.getVehicleSold().getVehicleId());
-			statement.setString(2, contract.getDateOfContract());
+			statement.setDate(2, contract.getDateOfContract());
 			statement.setString(3, contract.getCustomerName());
 			statement.setString(4, contract.getCustomerEmail());
 			statement.setBoolean(5, contract.isFinance());
@@ -117,7 +117,7 @@ public class MySqlSalesDao extends MySqlBaseDao implements SalesContractDao {
 		try(Connection connection = getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setInt(1, contract.getVehicleSold().getVehicleId());
-			statement.setString(2, contract.getDateOfContract());
+			statement.setDate(2, contract.getDateOfContract());
 			statement.setString(3, contract.getCustomerName());
 			statement.setString(4, contract.getCustomerEmail());
 			statement.setBoolean(5, contract.isFinance());
@@ -154,7 +154,7 @@ public class MySqlSalesDao extends MySqlBaseDao implements SalesContractDao {
 	}
 
 	private SalesContract mapRow(ResultSet results) throws SQLException {
-		String date = results.getString("contract_date");
+		Date date = results.getDate("contract_date");
 		String customerName = results.getString("customer_name");
 		String customerEmail = results.getString("customer_email");
 		Vehicle vehicle = vehicleDao.searchById(results.getInt("vehicle_id"));

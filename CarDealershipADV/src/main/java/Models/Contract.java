@@ -1,8 +1,11 @@
 package Models;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public abstract class Contract {
 
-    String dateOfContract;
+    Date dateOfContract;
     String customerName;
     String customerEmail;
     Vehicle vehicleSold;
@@ -12,7 +15,7 @@ public abstract class Contract {
 
     public Contract(){}
 
-    public Contract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicleSold) {
+    public Contract(Date dateOfContract, String customerName, String customerEmail, Vehicle vehicleSold) {
         this.dateOfContract = dateOfContract;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
@@ -20,11 +23,11 @@ public abstract class Contract {
     }
 
     //region getters and setters
-    public String getDateOfContract() {
+    public Date getDateOfContract() {
         return dateOfContract;
     }
 
-    public void setDateOfContract(String dateOfContract) {
+    public void setDateOfContract(Date dateOfContract) {
         this.dateOfContract = dateOfContract;
     }
 

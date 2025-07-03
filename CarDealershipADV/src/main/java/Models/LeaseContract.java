@@ -1,5 +1,8 @@
 package Models;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class LeaseContract extends Contract implements Printable{
 
     double expectedEndingValue;
@@ -9,7 +12,7 @@ public class LeaseContract extends Contract implements Printable{
     public LeaseContract() {
     }
 
-    public LeaseContract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicleSold) {
+    public LeaseContract(Date dateOfContract, String customerName, String customerEmail, Vehicle vehicleSold) {
         super(dateOfContract, customerName, customerEmail, vehicleSold);
     }
 

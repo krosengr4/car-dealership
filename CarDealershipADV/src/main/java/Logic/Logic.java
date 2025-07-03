@@ -13,8 +13,8 @@ import Utilities.Utils;
 import configurations.DatabaseConfig;
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Logic {
 
@@ -50,7 +50,7 @@ public class Logic {
 	}
 
 	private static void sellVehicle() {
-		LocalDate date = LocalDate.now();
+		Date date = Date.valueOf(LocalDate.now());
 		String customerName = Utils.getUserInput("Please enter customers first and last name: ");
 		String customerEmail = Utils.getUserInput("Pleas enter customers email: ");
 
@@ -65,10 +65,17 @@ public class Logic {
 		else if (!stringIsFinanced.equalsIgnoreCase("n"))
 			System.err.println("ERROR! Enter either y or n!\nProcess cancelled.");
 
-		SalesContract contract = salesDao.add(new SalesContract(date, customerName, customerEmail, vehicle, isFinanced));
+		if(!vehicle.isSold()) {
+			SalesContract contract = salesDao.add(new SalesContract(date, customerName, customerEmail, vehicle, isFinanced));
+			if(contract != null) {
+				vehicle.setIsSold(true);
+				vehicleDao.update(vehicle, vehicleId);
 
-		if(contract != null)
-			contract.print();
+				contract.print();
+			}
+		} else {
+			System.err.println("ERROR! This vehicle was sold already!!!");
+		}
 	}
 
 	private static void leaseVehicle() {
