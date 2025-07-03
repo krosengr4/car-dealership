@@ -4,10 +4,7 @@ import Data.VehicleDao;
 import Models.Vehicle;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -224,6 +221,35 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	}
 
 	public Vehicle add(Vehicle vehicle) {
+		String query = "INSERT INTO vehicles (vin, year_made, make, model, color, vehicle_type, odometer, price, sold, id " +
+							   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1, vehicle.getVin());
+			statement.setInt(2, vehicle.getYear());
+			statement.setString(3, vehicle.getMake());
+			statement.setString(4, vehicle.getModel());
+			statement.setString(5, vehicle.getColor());
+			statement.setString(6, vehicle.getVehicleType());
+			statement.setInt(7, vehicle.getOdometer());
+			statement.setDouble(8, vehicle.getPrice());
+			statement.setBoolean(9, vehicle.isSold());
+			statement.setInt(10, vehicle.getVehicleId());
+
+			int rows = statement.executeUpdate();
+			if(rows > 0) {
+				System.out.println("Success! The vehicle was added!!");
+				ResultSet keys = statement.getGeneratedKeys();
+
+				if(keys.next()) {
+					int vehicleId = keys.getInt(1);
+					return searchById(vehicleId);
+				}
+			}
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
 		return null;
 	}
 
