@@ -254,7 +254,31 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	}
 
 	public void update(Vehicle vehicle, int id) {
+		String query = "UPDATE vehicles " +
+							   "SET vin = ?, year_made = ?, make = ?, model = ?, color = ?, vehicle_type = ?, odometer = ?, price = ?, sold = ? " +
+							   "WHERE id = ?;";
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, vehicle.getVin());
+			statement.setInt(2, vehicle.getYear());
+			statement.setString(3, vehicle.getMake());
+			statement.setString(4, vehicle.getModel());
+			statement.setString(5, vehicle.getColor());
+			statement.setString(6, vehicle.getVehicleType());
+			statement.setInt(7, vehicle.getOdometer());
+			statement.setDouble(8, vehicle.getPrice());
+			statement.setBoolean(9, vehicle.isSold());
+			statement.setInt(10, vehicle.getVehicleId());
 
+			int rows = statement.executeUpdate();
+			if(rows > 0)
+				System.out.println("Success! The vehicle information was updated!!!");
+			else
+				System.err.println("ERROR! Could not update vehicle information!!!");
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void delete(int id) {
