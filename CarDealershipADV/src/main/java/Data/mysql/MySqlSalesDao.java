@@ -6,10 +6,7 @@ import Models.SalesContract;
 import Models.Vehicle;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +69,35 @@ public class MySqlSalesDao extends MySqlBaseDao implements SalesContractDao {
 			ResultSet result = statement.executeQuery();
 			if(result.next()) {
 				return mapRow(result);
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
+	public SalesContract add(SalesContract contract) {
+		String query = "INSERT INTO sales_contract (vehicle_id, contract_date, customer_name, customer_email, is_financed, total_price) " +
+							   "VALUES (?, ?, ?, ?, ?, ?);";
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			statement.setInt(1, contract.getVehicleSold().getVehicleId());
+			statement.setString(2, contract.getDateOfContract());
+			statement.setString(3, contract.getCustomerName());
+			statement.setString(4, contract.getCustomerEmail());
+			statement.setBoolean(5, contract.isFinance());
+			statement.setDouble(6, contract.calculateTotalPrice());
+
+			int rows = statement.executeUpdate();
+			if(rows > 0) {
+				System.out.println("Success! Sales contract was added!!!");
+				ResultSet keys = statement.getGeneratedKeys();
+
+				if(keys.next()) {
+					int contractId = keys.getInt(1);
+					return getByContractId(contractId);
+				}
 			}
 
 		} catch(SQLException e) {

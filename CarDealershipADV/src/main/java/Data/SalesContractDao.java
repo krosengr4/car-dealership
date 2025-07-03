@@ -12,10 +12,10 @@ public interface SalesContractDao {
 
 	SalesContract getByVehicleId(int vehicleId);
 
-	SalesContract add();
+	SalesContract add(SalesContract contract);
 
-	void update();
+	void update(SalesContract contract);
 
-	void delete();
+	void delete(int contractId);
 
 }
