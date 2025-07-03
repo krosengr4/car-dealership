@@ -6,9 +6,10 @@ import Data.VehicleDao;
 import Data.mysql.MySqlLeaseDao;
 import Data.mysql.MySqlSalesDao;
 import Data.mysql.MySqlVehicleDao;
+import Models.Vehicle;
 import UI.UserInterface;
 import configurations.DatabaseConfig;
-import org.apache.commons.dbcp2.BasicDataSource;
+import Utilities.Utils;
 
 public class AdminLogic {
 
@@ -37,7 +38,23 @@ public class AdminLogic {
 	}
 
 	private static void processAddVehicle() {
-		System.out.println("Add vehicle");
+		String vin = Utils.getUserInput("Enter the vehicle VIN: ");
+		int year = Utils.getUserInputInt("Enter the vehicle year: ");
+		String make = Utils.getUserInput("Enter the vehicle make: ");
+		String model = Utils.getUserInput("Enter the vehicle model: ");
+		String color = Utils.getUserInput("Enter the vehicle color: ");
+		String type = Utils.getUserInput("Enter the vehicle type: ");
+		int odometer = Utils.getUserInputInt("Enter the mileage on the vehicle: ");
+		double price = Utils.getUserInputDouble("Enter the vehicle price: ");
+
+		Vehicle vehicle = vehicleDao.add(new Vehicle(0, vin, year, make, model, color, type, odometer, price, false));
+		if(vehicle != null) {
+			Utils.designLine(50, true, "_");
+			vehicle.print();
+		}
+
+		Utils.pauseApp();
+//		('1F3JK34K53O4532JOL3', 2017, 'Mitsubishi', 'Outlander', 'SUV', 'Gray', 3'
 	}
 
 	private static void processUpdateVehicle() {

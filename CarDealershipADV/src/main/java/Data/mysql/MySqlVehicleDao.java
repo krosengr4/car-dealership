@@ -221,7 +221,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	}
 
 	public Vehicle add(Vehicle vehicle) {
-		String query = "INSERT INTO vehicles (vin, year_made, make, model, color, vehicle_type, odometer, price, sold, id " +
+		String query = "INSERT INTO vehicles (vin, year_made, make, model, color, vehicle_type, odometer, price, sold, id) " +
 							   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		try(Connection connection = getConnection()) {
