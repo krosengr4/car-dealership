@@ -8,6 +8,8 @@ public interface LeaseContractDao {
 
 	List<LeaseContract> getAll();
 
+	List<LeaseContract> getById();
+
 	LeaseContract add();
 
 	void update();

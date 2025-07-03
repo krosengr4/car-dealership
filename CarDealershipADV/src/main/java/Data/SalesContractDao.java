@@ -8,6 +8,8 @@ public interface SalesContractDao {
 
 	List<SalesContract> getAll();
 
+	List<SalesContract> getById();
+
 	SalesContract add();
 
 	void update();
