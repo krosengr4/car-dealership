@@ -61,7 +61,11 @@ public class VehicleLogic {
 	}
 
 	private static void processShowByModel() {
-		System.out.println("Show by model");
+		String vehicleModel = Utils.getUserInput("Enter the Vehicle Model: ");
+		List<Vehicle> vehicleList = vehicleDao.searchByModel(vehicleModel);
+
+		printData(vehicleList);
+		Utils.pauseApp();
 	}
 
 	private static void processShowByYear() {
