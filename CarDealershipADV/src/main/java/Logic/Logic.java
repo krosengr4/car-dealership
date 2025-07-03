@@ -16,6 +16,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Logic {
 
@@ -51,23 +52,16 @@ public class Logic {
 	}
 
 	private static void sellVehicle() {
-		Date date = Date.valueOf(LocalDate.now());
-		String customerName = Utils.getUserInput("Please enter customers first and last name: ");
-		String customerEmail = Utils.getUserInput("Pleas enter customers email: ");
+		List<String> contractAttributes = ui.displaySellLeaseScreen(1);
+		String customerName = contractAttributes.get(0);
+		String customerEmail = contractAttributes.get(1);
+		int vehicleId = Integer.parseInt(contractAttributes.get(2));
+		boolean isFinanced = Integer.parseInt(contractAttributes.get(3)) == 1;
 
-		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID that you are selling: ");
 		Vehicle vehicle = vehicleDao.searchById(vehicleId);
 
-		boolean isFinanced = false;
-		String stringIsFinanced = Utils.getUserInput("Is the vehicle financed? (Y or N): ").trim();
-
-		if(stringIsFinanced.equalsIgnoreCase("y"))
-			isFinanced = true;
-		else if (!stringIsFinanced.equalsIgnoreCase("n"))
-			System.err.println("ERROR! Enter either y or n!\nProcess cancelled.");
-
 		if(!vehicle.isSold()) {
-			SalesContract contract = salesDao.add(new SalesContract(date, customerName, customerEmail, vehicle, isFinanced));
+			SalesContract contract = salesDao.add(new SalesContract(Date.valueOf(LocalDate.now()), customerName, customerEmail, vehicle, isFinanced));
 			if(contract != null) {
 				vehicle.setIsSold(true);
 				vehicleDao.update(vehicle, vehicleId);
@@ -78,20 +72,18 @@ public class Logic {
 		} else {
 			System.err.println("ERROR! This vehicle was sold already!!!");
 		}
-
 		Utils.pauseApp();
 	}
 
 	private static void leaseVehicle() {
-		Date date = Date.valueOf(LocalDate.now());
-		String customerName = Utils.getUserInput("Please enter customers first and last name: ");
-		String customerEmail = Utils.getUserInput("Pleas enter customers email: ");
-
-		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID that you are leasing: ");
+		List<String> contractAttributes = ui.displaySellLeaseScreen(2);
+		String customerName = contractAttributes.get(0);
+		String customerEmail = contractAttributes.get(1);
+		int vehicleId = Integer.parseInt(contractAttributes.get(2));
 		Vehicle vehicle = vehicleDao.searchById(vehicleId);
 
 		if(!vehicle.isSold()) {
-			LeaseContract contract = leaseDao.add(new LeaseContract(date, customerName, customerEmail, vehicle));
+			LeaseContract contract = leaseDao.add(new LeaseContract(Date.valueOf(LocalDate.now()), customerName, customerEmail, vehicle));
 			if(contract != null) {
 				vehicle.setIsSold(true);
 				vehicleDao.update(vehicle, vehicleId);
@@ -102,7 +94,6 @@ public class Logic {
 		} else {
 			System.err.println("ERROR! This vehicle was sold already!!!");
 		}
-
 		Utils.pauseApp();
 	}
 

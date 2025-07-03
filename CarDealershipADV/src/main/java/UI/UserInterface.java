@@ -1,6 +1,11 @@
 package UI;
 
+import Models.Contract;
+import Models.Vehicle;
 import Utilities.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserInterface {
 
@@ -64,6 +69,24 @@ public class UserInterface {
 				""");
 
 		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 7);
+	}
+
+	public List<String> displaySellLeaseScreen(int sellOrLease) {
+		List<String> contractAttributes = new ArrayList<>();
+
+		String customerName = Utils.getUserInput("Please enter customers first and last name: ");
+		String customerEmail = Utils.getUserInput("Pleas enter customers email: ");
+		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID that you are leasing: ");
+
+		contractAttributes.add(customerName);
+		contractAttributes.add(customerEmail);
+		contractAttributes.add(String.valueOf(vehicleId));
+		if(sellOrLease == 1) {
+			int isFinanced = Utils.getUserInputIntMinMax("Is the vehicle financed?\n1 - yes\n2 - no\nEnter: ", 1, 2);
+			contractAttributes.add(String.valueOf(isFinanced));
+		}
+
+		return contractAttributes;
 	}
 
 }
