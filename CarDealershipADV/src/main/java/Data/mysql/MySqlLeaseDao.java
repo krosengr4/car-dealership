@@ -9,10 +9,7 @@ import configurations.DatabaseConfig;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +74,36 @@ public class MySqlLeaseDao extends MySqlBaseDao implements LeaseContractDao {
 			ResultSet result = statement.executeQuery();
 			if(result.next())
 				return mapRow(result);
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
+	@Override
+	public LeaseContract add(LeaseContract contract) {
+		String query = "INSERT INTO lease_contract (vehicle_id, contract_date, customer_name, customer_email, monthly_payment, total_price " +
+							   "VALUES (?, ?, ?, ?, ?, ?);";
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			statement.setInt(1, contract.getVehicleSold().getVehicleId());
+			statement.setString(2, contract.getDateOfContract());
+			statement.setString(3, contract.getCustomerName());
+			statement.setString(4, contract.getCustomerEmail());
+			statement.setDouble(5, contract.calculateMonthlyPayment());
+			statement.setDouble(6, contract.calculateTotalPrice());
+
+			int rows = statement.executeUpdate();
+			if(rows > 0) {
+				System.out.println("Success! The Lease Contract was added!!");
+
+				ResultSet keys = statement.getGeneratedKeys();
+				if(keys.next()) {
+					int contractId = keys.getInt(1);
+					return getByContractId(contractId);
+				}
+			}
 
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
