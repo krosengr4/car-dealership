@@ -62,7 +62,8 @@ public class AdminLogic {
 	}
 
 	private static void processDeleteVehicle() {
-		System.out.println("Delete a vehicle");
+		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID of the vehicle you wish to delete: ");
+		vehicleDao.delete(vehicleId);
 	}
 
 	private static void processUpdateSalesContract() {
