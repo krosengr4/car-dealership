@@ -11,10 +11,11 @@ public class Vehicle implements Printable{
     String vehicleType;
     int odometer;
     double price;
+	boolean isSold;
 
     public Vehicle(){}
 
-    public Vehicle(int vehicleId, String vin, int year, String make, String model, String vehicleType, String color, int odometer, double price) {
+    public Vehicle(int vehicleId, String vin, int year, String make, String model, String vehicleType, String color, int odometer, double price, boolean isSold) {
 		this.vehicleId = vehicleId;
         this.vin = vin;
         this.year = year;
@@ -24,6 +25,7 @@ public class Vehicle implements Printable{
         this.color = color;
         this.odometer = odometer;
         this.price = price;
+		this.isSold = isSold;
     }
 
     //region Getters and Setters
@@ -94,6 +96,12 @@ public class Vehicle implements Printable{
     public void setPrice(double price) {
         this.price = price;
     }
+
+	public boolean isSold() { return isSold; }
+
+	public void setIsSold(boolean isSold) {
+		this.isSold = isSold;
+	}
     //endregion
 
 	@Override
@@ -108,6 +116,9 @@ public class Vehicle implements Printable{
 		System.out.println("Color: " + this.color);
 		System.out.println("Odometer: " + this.odometer);
 		System.out.println("Price: $" + this.price);
+		if(this.isSold) {
+			System.out.println("This vehicle has been sold!");
+		}
 	}
 
 }
