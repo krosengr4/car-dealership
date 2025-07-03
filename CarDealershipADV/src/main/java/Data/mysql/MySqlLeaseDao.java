@@ -46,6 +46,7 @@ public class MySqlLeaseDao extends MySqlBaseDao implements LeaseContractDao {
 		return contractList;
 	}
 
+	@Override
 	public LeaseContract getByContractId(int contractId) {
 		String query = "SELECT * FROM lease_contract " +
 							   "WHERE lease_contract_id = ?;";
@@ -58,6 +59,24 @@ public class MySqlLeaseDao extends MySqlBaseDao implements LeaseContractDao {
 			if(result.next()) {
 				return mapRow(result);
 			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
+	@Override
+	public LeaseContract getByVehicleId(int vehicleId) {
+		String query = "SELECT * FROM lease_contract " +
+							   "WHERE vehicle_id = ?;";
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, vehicleId);
+
+			ResultSet result = statement.executeQuery();
+			if(result.next())
+				return mapRow(result);
 
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
