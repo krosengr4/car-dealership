@@ -78,7 +78,11 @@ public class VehicleLogic {
 	}
 
 	private static void processShowByColor() {
-		System.out.println("Show by color");
+		String color = Utils.getUserInput("Enter the Vehicle Color: ");
+		List<Vehicle> vehiclesList = vehicleDao.searchByColor(color);
+
+		printData(vehiclesList);
+		Utils.pauseApp();
 	}
 
 	private static void processShowByMileage() {
