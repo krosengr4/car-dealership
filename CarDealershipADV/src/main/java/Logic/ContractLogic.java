@@ -55,7 +55,18 @@ public class ContractLogic {
 		Utils.pauseApp();
 	}
 
-	private static void processSearchSalesByVehicleId() {}
+	private static void processSearchSalesByVehicleId() {
+		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID: ");
+		SalesContract contract = salesDao.getByVehicleId(vehicleId);
+
+		if(contract == null) {
+			System.out.println("Could not find sales contract for that Vehicle...");
+		} else {
+			Utils.designLine(50, true, "_");
+			contract.print();
+		}
+		Utils.pauseApp();
+	}
 
 	private static void processShowAllLease() {
 		System.out.println("All lease contracts");
