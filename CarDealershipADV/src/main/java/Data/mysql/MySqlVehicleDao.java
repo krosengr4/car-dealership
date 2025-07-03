@@ -282,7 +282,21 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	}
 
 	public void delete(int id) {
+		String query = "DELETE FROM vehicles " +
+							   "WHERE id = ?;";
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, id);
 
+			int rows = statement.executeUpdate();
+			if(rows > 0)
+				System.out.println("Success! The vehicle has been deleted!");
+			else
+				System.err.println("ERROR! Could not delete the vehicle!!!");
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private Vehicle mapRow(ResultSet results) throws SQLException {
@@ -297,7 +311,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 		double price = results.getFloat("price");
 		boolean ifSold = results.getBoolean("sold");
 
-		return new Vehicle(id, vin, year, make, model, color, type, odometer, price);
+		return new Vehicle(id, vin, year, make, model, color, type, odometer, price, ifSold);
 	}
 
 
