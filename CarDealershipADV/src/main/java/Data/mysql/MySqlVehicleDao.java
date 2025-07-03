@@ -314,5 +314,4 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 		return new Vehicle(id, vin, year, make, model, color, type, odometer, price, ifSold);
 	}
 
-
 }

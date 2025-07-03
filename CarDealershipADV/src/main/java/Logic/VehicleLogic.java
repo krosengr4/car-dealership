@@ -53,7 +53,11 @@ public class VehicleLogic {
 	}
 
 	private static void processShowByMake() {
-		System.out.println("Show by Make");
+		String vehicleMake = Utils.getUserInput("Enter the Vehicle Make: ");
+		List<Vehicle> vehicleList = vehicleDao.searchByMake(vehicleMake);
+
+		printData(vehicleList);
+		Utils.pauseApp();
 	}
 
 	private static void processShowByModel() {
