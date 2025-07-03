@@ -120,6 +120,8 @@ public class Utils {
 	public static String cowboy = "\uD83E\uDD20";
 	public static String ticket = "\uD83C\uDF9F\uFE0F";
 	public static String train = "\uD83D\uDE84";
+	public static String car = "🚗";
+	public static String raceCar = "\uD83C\uDFCE\uFE0F";
 	public static String fire = "\uD83D\uDD25";
 	public static String meat = "\uD83E\uDD69";
 	public static String bread = "\uD83C\uDF5E";
