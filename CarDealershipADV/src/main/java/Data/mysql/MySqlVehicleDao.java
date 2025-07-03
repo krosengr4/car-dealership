@@ -205,6 +205,21 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 
 	@Override
 	public Vehicle searchById(int id) {
+		String query = "SELECT * FROM vehicles " +
+							   "WHERE id = ?;";
+
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, id);
+
+			ResultSet result = statement.executeQuery();
+			if(result.next()) {
+				return mapRow(result);
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
 		return null;
 	}
 
@@ -221,6 +236,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	}
 
 	private Vehicle mapRow(ResultSet results) throws SQLException {
+		int id = results.getInt("id");
 		String vin = results.getString("vin");
 		int year = results.getInt("year_made");
 		String make = results.getString("make");
@@ -231,7 +247,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 		double price = results.getFloat("price");
 		boolean ifSold = results.getBoolean("sold");
 
-		return new Vehicle(vin, year, make, model, color, type, odometer, price);
+		return new Vehicle(id, vin, year, make, model, color, type, odometer, price);
 	}
 
 
