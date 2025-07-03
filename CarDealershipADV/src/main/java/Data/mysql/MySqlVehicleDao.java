@@ -30,6 +30,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 				Vehicle vehicle = mapRow(results);
 				vehiclesList.add(vehicle);
 			}
+
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -53,6 +54,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 				Vehicle vehicle = mapRow(results);
 				vehicleList.add(vehicle);
 			}
+
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -76,6 +78,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 				Vehicle vehicle = mapRow(results);
 				vehicleList.add(vehicle);
 			}
+
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -98,7 +101,8 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 				Vehicle vehicle = mapRow(results);
 				vehicleList.add(vehicle);
 			}
-		}catch(SQLException e) {
+
+		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
 
@@ -106,8 +110,27 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	}
 
 	@Override
-	public List<Vehicle> searchByYear(int year) {
-		return null;
+	public List<Vehicle> searchByYear(int minYear, int maxYear) {
+		List<Vehicle> vehicleList = new ArrayList<>();
+		String query = "SELECT * FROM vehicles " +
+							   "WHERE year BETWEEN ? AND ?;";
+
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, minYear);
+			statement.setInt(2, maxYear);
+
+			ResultSet results = statement.executeQuery();
+			while(results.next()) {
+				Vehicle vehicle = mapRow(results);
+				vehicleList.add(vehicle);
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return vehicleList;
 	}
 
 	@Override
@@ -147,7 +170,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 		int year = results.getInt("year_made");
 		String make = results.getString("make");
 		String model = results.getString("model");
-		String color =  results.getString("color");
+		String color = results.getString("color");
 		String type = results.getString("vehicle_type");
 		int odometer = results.getInt("odometer");
 		double price = results.getFloat("price");
@@ -155,8 +178,6 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 
 		return new Vehicle(vin, year, make, model, color, type, odometer, price);
 	}
-
-
 
 
 }

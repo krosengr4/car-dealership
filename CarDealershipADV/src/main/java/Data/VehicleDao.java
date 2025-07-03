@@ -14,11 +14,11 @@ public interface VehicleDao {
 
 	List<Vehicle> searchByModel(String model);
 
-	List<Vehicle> searchByYear(int year);
+	List<Vehicle> searchByYear(int minYear, int maxYear);
 
 	List<Vehicle> searchByColor(String color);
 
-	List<Vehicle> searchByMileage(int min, int max);
+	List<Vehicle> searchByMileage(int minMiles, int maxMiles);
 
 	List<Vehicle> searchByType(String type);
 
