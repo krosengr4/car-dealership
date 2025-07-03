@@ -86,7 +86,12 @@ public class VehicleLogic {
 	}
 
 	private static void processShowByMileage() {
-		System.out.println("Show by mileage");
+		int minMiles = Utils.getUserInputInt("Enter the Minimum Mileage: ");
+		int maxMiles = Utils.getUserInputInt("Enter the Maximum Mileage: ");
+		List<Vehicle> vehicleList = vehicleDao.searchByMileage(minMiles, maxMiles);
+
+		printData(vehicleList);
+		Utils.pauseApp();
 	}
 
 	private static void processShowByType() {
