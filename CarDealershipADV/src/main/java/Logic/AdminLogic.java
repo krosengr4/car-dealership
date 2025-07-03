@@ -6,6 +6,7 @@ import Data.VehicleDao;
 import Data.mysql.MySqlLeaseDao;
 import Data.mysql.MySqlSalesDao;
 import Data.mysql.MySqlVehicleDao;
+import Models.Contract;
 import Models.SalesContract;
 import Models.Vehicle;
 import UI.UserInterface;
@@ -134,7 +135,27 @@ public class AdminLogic {
 	}
 
 	private static void processDeleteSalesContract() {
-		System.out.println("Delete sales contract");
+		int contractId = Utils.getUserInputInt("Enter the ID of the sales contract to delete: ");
+		SalesContract contract = salesDao.getByContractId(contractId);
+
+		if(contract != null) {
+			Utils.designLine(50, true, "-");
+			contract.print();
+
+			int userConfirmation = Utils.getUserInputIntMinMax("\nIs this the contract you'd like to delete?\n1 - Yes, delete it\n2 - No! Hold your horses!\nEnter here: ", 1, 2);
+			if(userConfirmation == 1) {
+				salesDao.delete(contractId);
+
+				Vehicle vehicle = contract.getVehicleSold();
+				vehicle.setIsSold(false);
+				vehicleDao.update(vehicle, vehicle.getVehicleId());
+			}
+			else
+				System.out.println("\nThen the contract shall remain! It was not deleted!");
+		} else {
+			System.out.println("No contract was found with that ID...");
+		}
+		Utils.pauseApp();
 	}
 
 	private static void processUpdateLeaseContract() {
