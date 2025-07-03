@@ -157,8 +157,27 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	}
 
 	@Override
-	public List<Vehicle> searchByMileage(int min, int max) {
-		return null;
+	public List<Vehicle> searchByMileage(int minMiles, int maxMiles) {
+		List<Vehicle> vehicleList = new ArrayList<>();
+		String query = "SELECT * FROM vehicles " +
+							   "WHERE odometer BETWEEN ? AND ?;";
+
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, minMiles);
+			statement.setInt(2, maxMiles);
+
+			ResultSet results = statement.executeQuery();
+			while(results.next()) {
+				Vehicle vehicle = mapRow(results);
+				vehicleList.add(vehicle);
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return vehicleList;
 	}
 
 	@Override
