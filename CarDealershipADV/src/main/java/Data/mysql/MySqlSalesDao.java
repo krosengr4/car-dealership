@@ -61,6 +61,25 @@ public class MySqlSalesDao extends MySqlBaseDao implements SalesContractDao {
 		return null;
 	}
 
+	public SalesContract getByVehicleId(int vehicleId) {
+		String query = "SELECT * FROM sales_contract " +
+							   "WHERE vehicle_id = ?;";
+
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, vehicleId);
+
+			ResultSet result = statement.executeQuery();
+			if(result.next()) {
+				return mapRow(result);
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
 	private SalesContract mapRow(ResultSet results) throws SQLException {
 		String date = results.getString("contract_date");
 		String customerName = results.getString("customer_name");
