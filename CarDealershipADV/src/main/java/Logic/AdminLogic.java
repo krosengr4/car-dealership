@@ -105,27 +105,35 @@ public class AdminLogic {
 	private static void processUpdateSalesContract() {
 		int contractId = Utils.getUserInputInt("Enter the ID of the sales contract to update: ");
 		SalesContract updateContract = salesDao.getByContractId(contractId);
-		int userChoice = ui.displayUpdateSaleContract();
 
-		switch(userChoice) {
-			case 1 -> updateContract.setCustomerName(Utils.getUserInput("Enter the new customer name: "));
-			case 2 -> updateContract.setCustomerEmail(Utils.getUserInput("Enter the new customer email: "));
-			case 3 -> {
-				Vehicle newVehicle = processUpdatingVehicleOnContract(updateContract.getVehicleSold());
+		if(updateContract == null) {
+			System.out.println("\nThere were no sales contracts found with that ID...");
+		} else {
 
-				if(newVehicle == null)
-					System.err.println("ERROR! This Vehicle has already been sold!!!");
-				else
-					updateContract.setVehicleSold(newVehicle);
+			int userChoice = ui.displayUpdateSaleContract();
 
+			switch(userChoice) {
+				case 1 -> updateContract.setCustomerName(Utils.getUserInput("Enter the new customer name: "));
+				case 2 -> updateContract.setCustomerEmail(Utils.getUserInput("Enter the new customer email: "));
+				case 3 -> {
+					Vehicle newVehicle = processUpdatingVehicleOnContract(updateContract.getVehicleSold());
+
+					if(newVehicle == null)
+						System.err.println("ERROR! This Vehicle has already been sold!!!");
+					else
+						updateContract.setVehicleSold(newVehicle);
+
+				}
+				case 4 ->
+						updateContract.setFinance(Utils.getUserInputBoolean("Enter true or false for if the vehicle was financed: "));
+				case 0 -> {
+					return;
+				}
 			}
-			case 4 -> updateContract.setFinance(Utils.getUserInputBoolean("Enter true or false for if the vehicle was financed: "));
-			case 0 -> {
-				return;
-			}
+
+			salesDao.update(updateContract, contractId);
 		}
-
-		salesDao.update(updateContract, contractId);
+		Utils.pauseApp();
 	}
 
 	private static void processDeleteSalesContract() {
@@ -193,18 +201,23 @@ public class AdminLogic {
 		int newVehicleId = Utils.getUserInputInt("Enter the ID for the new vehicle: ");
 		Vehicle newVehicle = vehicleDao.getById(newVehicleId);
 
-		//Make sure that the new vehicle user is trying to put on the contract isn't already sold
-		if(!newVehicle.isSold()) {
-			//Set sold to true and update vehicle in the db
-			newVehicle.setIsSold(true);
-			vehicleDao.update(newVehicle, newVehicle.getVehicleId());
+		//Make sure that the vehicles exists in the db
+		if(newVehicle == null) {
+			System.out.println("\nThere were no vehicles found with that ID...");
+		} else {
+			//Make sure that the new vehicle user is trying to put on the contract isn't already sold
+			if(!newVehicle.isSold()) {
+				//Set sold to true and update vehicle in the db
+				newVehicle.setIsSold(true);
+				vehicleDao.update(newVehicle, newVehicle.getVehicleId());
 
-			//Set isSold to false for the vehicle that was on the contract. Update vehicle in the db
-			oldVehicle.setIsSold(false);
-			vehicleDao.update(oldVehicle, oldVehicle.getVehicleId());
+				//Set isSold to false for the vehicle that was on the contract. Update vehicle in the db
+				oldVehicle.setIsSold(false);
+				vehicleDao.update(oldVehicle, oldVehicle.getVehicleId());
 
-			//return the new vehicle
-			return newVehicle;
+				//return the new vehicle
+				return newVehicle;
+			}
 		}
 		return null;
 	}
