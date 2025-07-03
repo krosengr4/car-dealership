@@ -92,7 +92,18 @@ public class ContractLogic {
 		Utils.pauseApp();
 	}
 
-	private static void processSearchLeaseByVehicleId() {}
+	private static void processSearchLeaseByVehicleId() {
+		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID: ");
+		LeaseContract contract = leaseDao.getByVehicleId(vehicleId);
+
+		if(contract == null) {
+			System.out.println("Could not find lease contract for that vehicle...");
+		} else {
+			Utils.designLine(50, true, "_");
+			contract.print();
+		}
+		Utils.pauseApp();
+	}
 
 	private static void printData(List<Contract> contractList) {
 		Utils.designLine(50, true, "_");
