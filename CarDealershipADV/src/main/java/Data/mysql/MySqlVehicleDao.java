@@ -90,7 +90,7 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	public List<Vehicle> searchByModel(String model) {
 		List<Vehicle> vehicleList = new ArrayList<>();
 		String query = "SELECT * FROM vehicles " +
-							   "WHERE model LIKE ?";
+							   "WHERE model LIKE ?;";
 
 		try(Connection connection = getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -135,7 +135,25 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 
 	@Override
 	public List<Vehicle> searchByColor(String color) {
-		return null;
+		List<Vehicle> vehicleList = new ArrayList<>();
+		String query = "SELECT * FROM vehicles " +
+							   "WHERE color LIKE ?;";
+
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, "%" + color + "%");
+
+			ResultSet results = statement.executeQuery();
+			while(results.next()) {
+				Vehicle vehicle = mapRow(results);
+				vehicleList.add(vehicle);
+			}
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return vehicleList;
 	}
 
 	@Override
