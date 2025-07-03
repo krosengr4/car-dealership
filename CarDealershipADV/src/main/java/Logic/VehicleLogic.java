@@ -69,7 +69,12 @@ public class VehicleLogic {
 	}
 
 	private static void processShowByYear() {
-		System.out.println("Show by year");
+		int minYear = Utils.getUserInputInt("Enter the Minimum Year: ");
+		int maxYear = Utils.getUserInputInt("Enter the Maximum Year: ");
+		List<Vehicle> vehicleList = vehicleDao.searchByYear(minYear, maxYear);
+
+		printData(vehicleList);
+		Utils.pauseApp();
 	}
 
 	private static void processShowByColor() {
