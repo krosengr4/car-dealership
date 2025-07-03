@@ -39,13 +39,14 @@ public class UserInterface {
 		System.out.println("\t\t\t\t\tCONTRACT MENU");
 		Utils.designLine(55, false, "=");
 		System.out.println("""
-									---OPTIONS---
-				1 - View All Sales Contracts
-				2 - View All Lease Contracts
-				0 - Go Back
+												---OPTIONS---
+				1 - View All Sales Contracts				4 - View All Lease Contracts
+				2 - Search Sales Contract by Contract ID	5 - Search Lease Contracts by Contract ID
+				3 - Search Sales Contract by Vehicle ID		6 - Search Lease Contracts by Vehicle ID
+												0 - Go Back
 				""");
 
-		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 2);
+		return Utils.getUserInputIntMinMax("Enter your option: ", 0, 6);
 	}
 
 	public int displayAdminMenu() {
