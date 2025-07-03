@@ -8,7 +8,9 @@ public interface SalesContractDao {
 
 	List<SalesContract> getAll();
 
-	List<SalesContract> getById();
+	SalesContract getByContractId(int contractId);
+
+	SalesContract getByVehicleId(int vehicleId);
 
 	SalesContract add();
 
