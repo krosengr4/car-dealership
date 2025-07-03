@@ -89,4 +89,50 @@ public class UserInterface {
 		return contractAttributes;
 	}
 
+	public int displayUpdateVehicle() {
+		System.out.println("What would you like to update?");
+		System.out.println("""
+						---OPTIONS---
+				1 - Update Vehicle VIN
+				2 - Update Vehicle Year
+				3 - Update Vehicle Make
+				4 - Update Vehicle Model
+				5 - Update Vehicle Color
+				6 - Update Vehicle Type
+				7 - Update Vehicle Odometer
+				8 - Update Vehicle Price
+				9 - Update if Vehicle Was Sold
+				0 - Go back
+				""");
+
+		return Utils.getUserInputIntMinMax("Enter here: ", 0, 9);
+	}
+
+	public int displayUpdateSaleContract() {
+		System.out.println("\nWhat would you like to update?");
+		System.out.println("""
+						---OPTIONS---
+				1 - Update Customer Name
+				2 - Update Customer Email
+				3 - Update Vehicle Sold
+				4 - Update if the sale was financed
+				0 - Go back
+				""");
+
+		return Utils.getUserInputIntMinMax("Enter here: ", 0, 4);
+	}
+
+	public int displayUpdateLeaseContract() {
+		System.out.println("\nWhat would you like to update?");
+		System.out.println("""
+						---OPTIONS---
+				1 - Update Customer Name
+				2 - Update Customer Email
+				3 - Update Vehicle Sold
+				0 - Go back
+				""");
+
+		return Utils.getUserInputIntMinMax("Enter here: ", 0, 3);
+	}
+
 }
