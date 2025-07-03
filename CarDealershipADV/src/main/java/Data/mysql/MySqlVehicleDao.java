@@ -305,13 +305,13 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 		int year = results.getInt("year_made");
 		String make = results.getString("make");
 		String model = results.getString("model");
-		String color = results.getString("color");
 		String type = results.getString("vehicle_type");
+		String color = results.getString("color");
 		int odometer = results.getInt("odometer");
 		double price = results.getFloat("price");
 		boolean ifSold = results.getBoolean("sold");
 
-		return new Vehicle(id, vin, year, make, model, color, type, odometer, price, ifSold);
+		return new Vehicle(id, vin, year, make, model, type, color, odometer, price, ifSold);
 	}
 
 }
