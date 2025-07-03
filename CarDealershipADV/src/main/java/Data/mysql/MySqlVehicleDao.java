@@ -62,7 +62,25 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 
 	@Override
 	public List<Vehicle> searchByMake(String make) {
-		return null;
+		List<Vehicle> vehicleList = new ArrayList<>();
+
+		String query = "SELECT * FROM vehicles " +
+							   "WHERE make LIKE ?;";
+
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, "%" + make + "%");
+
+			ResultSet results = statement.executeQuery();
+			while(results.next()) {
+				Vehicle vehicle = mapRow(results);
+				vehicleList.add(vehicle);
+			}
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return vehicleList;
 	}
 
 	@Override
