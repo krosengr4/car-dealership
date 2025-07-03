@@ -131,6 +131,24 @@ public class MySqlSalesDao extends MySqlBaseDao implements SalesContractDao {
 		}
 	}
 
+	public void delete(int contractId) {
+		String query = "DELETE FROM sales_contract " +
+							   "WHERE sales_contract_id = ?;";
+		try(Connection connection = getConnection()) {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, contractId);
+
+			int rows = statement.executeUpdate();
+			if (rows > 0)
+				System.out.println("Success! The Sales Contract was deleted!!!");
+			else
+				System.err.println("ERROR! Could not delete the Sales Contract!!!");
+
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private SalesContract mapRow(ResultSet results) throws SQLException {
 		String date = results.getString("contract_date");
 		String customerName = results.getString("customer_name");
