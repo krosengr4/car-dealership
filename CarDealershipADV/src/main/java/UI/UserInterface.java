@@ -76,7 +76,7 @@ public class UserInterface {
 
 		String customerName = Utils.getUserInput("Please enter customers first and last name: ");
 		String customerEmail = Utils.getUserInput("Pleas enter customers email: ");
-		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID that you are leasing: ");
+		int vehicleId = Utils.getUserInputInt("Enter the Vehicle ID: ");
 
 		contractAttributes.add(customerName);
 		contractAttributes.add(customerEmail);

@@ -6,6 +6,7 @@ import Data.VehicleDao;
 import Data.mysql.MySqlLeaseDao;
 import Data.mysql.MySqlSalesDao;
 import Data.mysql.MySqlVehicleDao;
+import Models.SalesContract;
 import Models.Vehicle;
 import UI.UserInterface;
 import configurations.DatabaseConfig;
@@ -72,6 +73,9 @@ public class AdminLogic {
 			case 7 -> updateVehicle.setOdometer(Utils.getUserInputInt("Enter the new odometer: "));
 			case 8 -> updateVehicle.setPrice(Utils.getUserInputDouble("Enter the new price: "));
 			case 9 -> updateVehicle.setIsSold(Utils.getUserInputBoolean("Enter true or false for is the vehicle sold: "));
+			case 0 -> {
+				return;
+			}
 		}
 
 		vehicleDao.update(updateVehicle, vehicleId);
@@ -83,7 +87,50 @@ public class AdminLogic {
 	}
 
 	private static void processUpdateSalesContract() {
-		System.out.println("Update sales contract");
+		int contractId = Utils.getUserInputInt("Enter the ID of the sales contract to update: ");
+		SalesContract updateContract = salesDao.getByContractId(contractId);
+		int userChoice = ui.displayUpdateSaleContract();
+
+		switch(userChoice) {
+			case 1 -> updateContract.setCustomerName(Utils.getUserInput("Enter the new customer name: "));
+			case 2 -> updateContract.setCustomerEmail(Utils.getUserInput("Enter the new customer email: "));
+			case 3 -> {
+				Vehicle newVehicle = processUpdatingVehicleOnContract(updateContract.getVehicleSold());
+
+				if(newVehicle == null)
+					System.err.println("ERROR! This Vehicle has already been sold!!!");
+				else
+					updateContract.setVehicleSold(vehicleDao.searchById(newVehicle.getVehicleId()));
+			}
+
+			case 4 -> updateContract.setFinance(Utils.getUserInputBoolean("Enter true or false for if the vehicle was financed: "));
+			case 0 -> {
+				return;
+			}
+		}
+
+		salesDao.update(updateContract, contractId);
+	}
+
+	private static Vehicle processUpdatingVehicleOnContract(Vehicle oldVehicle) {
+		//Get the vehicle to add onto the contract
+		int newVehicleId = Utils.getUserInputInt("Enter the ID for the new vehicle: ");
+		Vehicle newVehicle = vehicleDao.searchById(newVehicleId);
+
+		//Make sure that the new vehicle user is trying to put on the contract isn't already sold
+		if(!newVehicle.isSold()) {
+			//Set sold to true and update vehicle in the db
+			newVehicle.setIsSold(true);
+			vehicleDao.update(newVehicle, newVehicle.getVehicleId());
+
+			//Set isSold to false for the vehicle that was on the contract. Update vehicle in the db
+			oldVehicle.setIsSold(false);
+			vehicleDao.update(oldVehicle, oldVehicle.getVehicleId());
+
+			//return the new vehicle
+			return newVehicle;
+		}
+		return null;
 	}
 
 	private static void processDeleteSalesContract() {

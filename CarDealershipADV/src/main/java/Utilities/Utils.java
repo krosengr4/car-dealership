@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Utils {
@@ -65,7 +66,7 @@ public class Utils {
 			System.out.println(message);
 			try {
 				return Boolean.parseBoolean(myScanner.nextLine());
-			} catch (Exception e) {
+			} catch (InputMismatchException e) {
 				System.err.println("ERROR! Invalid input! Please enter either true or false!!");
 			}
 		}
