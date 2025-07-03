@@ -1,19 +1,22 @@
 package Data;
 
+import Models.Contract;
 import Models.LeaseContract;
 
 import java.util.List;
 
 public interface LeaseContractDao {
 
-	List<LeaseContract> getAll();
+	List<Contract> getAll();
 
-	List<LeaseContract> getById();
+	LeaseContract getByContractId(int contractId);
 
-	LeaseContract add();
+	LeaseContract getByVehicleId(int vehicleId);
 
-	void update();
+	LeaseContract add(LeaseContract contract);
 
-	void delete();
+	void update(int contractId);
+
+	void delete(int contractId);
 
 }
