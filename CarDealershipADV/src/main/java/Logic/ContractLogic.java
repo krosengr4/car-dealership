@@ -1,6 +1,5 @@
 package Logic;
 
-import Data.mysql.MySqlLeaseDao;
 import Data.mysql.MySqlSalesDao;
 import Models.Contract;
 import Models.SalesContract;
@@ -9,7 +8,6 @@ import Utilities.Utils;
 import configurations.DatabaseConfig;
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 public class ContractLogic {
@@ -45,7 +43,16 @@ public class ContractLogic {
 	}
 
 	private static void processSearchSalesByContractId() {
-		System.out.println("Search by contract ID");
+		int contractId = Utils.getUserInputInt("Enter the Contract ID: ");
+		SalesContract contract = salesDao.getByContractId(contractId);
+
+		if(contract == null) {
+			System.out.println("Could not find sales contract with that ID...");
+		} else {
+			Utils.designLine(50, true, "_");
+			contract.print();
+		}
+		Utils.pauseApp();
 	}
 
 	private static void processSearchSalesByVehicleId() {}

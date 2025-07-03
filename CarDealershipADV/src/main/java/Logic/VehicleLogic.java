@@ -1,5 +1,6 @@
 package Logic;
 
+import Data.VehicleDao;
 import Data.mysql.MySqlVehicleDao;
 import Models.Vehicle;
 import UI.UserInterface;
@@ -13,7 +14,7 @@ public class VehicleLogic {
 
 	static UserInterface ui = new UserInterface();
 	static BasicDataSource dataSource = DatabaseConfig.setDataSource();
-	static MySqlVehicleDao vehicleDao = new MySqlVehicleDao(dataSource);
+	static VehicleDao vehicleDao = new MySqlVehicleDao(dataSource);
 
 	public static void processVehicleMenu() {
 		boolean ifContinue = true;
