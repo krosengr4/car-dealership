@@ -95,7 +95,11 @@ public class VehicleLogic {
 	}
 
 	private static void processShowByType() {
-		System.out.println("Process Show By Type");
+		String vehicleType = Utils.getUserInput("Enter the Vehicle Type: ");
+		List<Vehicle> vehicleList = vehicleDao.searchByType(vehicleType);
+
+		printData(vehicleList);
+		Utils.pauseApp();
 	}
 
 	private static void printData(List<Vehicle> vehicleList) {

@@ -181,11 +181,11 @@ public class MySqlVehicleDao extends MySqlBaseDao implements VehicleDao {
 	public List<Vehicle> searchByType(String type) {
 		List<Vehicle> vehicleList = new ArrayList<>();
 		String query = "SELECT * FROM vehicles " +
-							   "WHERE type = ?;";
+							   "WHERE vehicle_type LIKE ?;";
 
 		try(Connection connection = getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(query);
-			statement.setString(1, type);
+			statement.setString(1, "%" + type + "%");
 
 			ResultSet results = statement.executeQuery();
 			while(results.next()) {
